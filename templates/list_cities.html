@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="header">
+        List of cities
+    </div>
+    <div class="list">
+        <ul>
+        {% for city in cities %}
+            <li>{{city.name}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
