@@ -73,7 +73,7 @@ def edit_activity(city_id, activity_id):
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/delete/')
 def delete_activity(city_id, activity_id):
-    return "This activity no longer exists."
+    return render_template('delete_activity.html', city=my_city, activity=my_activity)
 
 
 if __name__ == '__main__':
