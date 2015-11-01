@@ -38,7 +38,7 @@ def city(city_id):
 
 @app.route('/cities/new/')
 def new_city():
-    return "Let's create a new city!"
+    return render_template('new_city.html')
 
 
 @app.route('/cities/<int:city_id>/edit/')
