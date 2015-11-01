@@ -32,8 +32,8 @@ def list_cities():
 
 
 @app.route('/cities/<int:city_id>/')
-def city(city_id):
-    return "Just one city"
+def show_city(city_id):
+    return render_template('show_city.html', city=my_city)
 
 
 @app.route('/cities/new/')
