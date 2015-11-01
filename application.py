@@ -64,7 +64,9 @@ def show_city(city_id):
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
 def show_activity(city_id, activity_id):
-    return render_template('show_activity.html', city=my_city, activity=my_activity)
+    city = session.query(City).filter(City.id == city_id).one()
+    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    return render_template('show_activity.html', city=city, activity=activity)
 
 
 @app.route('/cities/<int:city_id>/activities/new/', methods=['GET', 'POST'])
