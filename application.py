@@ -31,11 +31,6 @@ def list_cities():
     return render_template('list_cities.html', cities=cities)
 
 
-@app.route('/cities/<int:city_id>/')
-def show_city(city_id):
-    return render_template('show_city.html', city=my_city)
-
-
 @app.route('/cities/new/')
 def new_city():
     return render_template('new_city.html')
@@ -52,8 +47,9 @@ def delete_city(city_id):
 
 
 @app.route('/cities/<int:city_id>/activities/')
-def list_activities(city_id):
-    return render_template('list_activities.html', city=my_city, activities=activities)
+@app.route('/cities/<int:city_id>/')
+def show_city(city_id):
+    return render_template('show_city.html', city=my_city, activities=activities)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
