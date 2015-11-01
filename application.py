@@ -1,5 +1,5 @@
 __author__ = 'poojm'
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, City, Activity
@@ -48,7 +48,7 @@ def edit_city(city_id):
 
 @app.route('/cities/<int:city_id>/delete/')
 def delete_city(city_id):
-    return "We don't really need that city... do we?"
+    return render_template('delete_city.html', city=my_city)
 
 
 @app.route('/cities/<int:city_id>/activities/')
