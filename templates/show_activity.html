@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="header">
+        {{activity.name}}
+    </div>
+    <p class="warning">
+        <p>Let's pretend I'm telling you something cool about this activity.</p>
+
+        <p>Wow, that was super interesting!</p>
+        <p>I feel so informed now!</p>
+
+        <p>Edit?</p>
+        <p>Delete?</p>
+        <p><a href="{{url_for('list_activities', city_id=city.id)}}">Back</a></p>
+    </div>
+</body>
+</html>

@@ -57,8 +57,8 @@ def list_activities(city_id):
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
-def activity(city_id, activity_id):
-    return "Just this one activity!"
+def show_activity(city_id, activity_id):
+    return render_template('show_activity.html', city=my_city, activity=my_activity)
 
 
 @app.route('/cities/<int:city_id>/activities/new/')
