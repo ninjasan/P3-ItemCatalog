@@ -1,10 +1,10 @@
 __author__ = 'poojm'
 from flask import Flask, render_template
-app = Flask(__name__)
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, City, Activity
+
+app = Flask(__name__)
 
 engine = create_engine('sqlite:///vacation_catalog.db')
 Base.metadata.bind = engine
@@ -12,12 +12,12 @@ DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
 #fake data for now
-city = {'name': "Seattle", 'id': 1}
+my_city = {'name': "Seattle", 'id': 1}
 cities = [{'name': "Seattle", 'id': 1},
           {'name': "Portland", 'id': 2},
           {'name': "Vancouver", "id": 3},
           {'name': "Chicago", "id": 4}]
-activity = {'name': "Greenlake", 'id': 1, 'city_id': 1, 'description': "walk around the lake", 'category': "outdoors"}
+my_activity = {'name': "Greenlake", 'id': 1, 'city_id': 1, 'description': "walk around the lake", 'category': "outdoors"}
 activities = [{'name': "Greenlake", 'id': 1, 'city_id': 1, 'description': "walk around the lake", 'category': "outdoors"},
               {'name': "mkt.", 'id': 2, 'city_id': 1, 'description': "eat delicious food by Ethan Stowell", 'category': "food"},
               {'name': "Chihuly Glass Garden", 'id': 3, 'city_id': 1, 'description': "gorgeous glass museum", 'category': "museums"},
@@ -29,7 +29,6 @@ activities = [{'name': "Greenlake", 'id': 1, 'city_id': 1, 'description': "walk 
 @app.route('/cities/')
 def list_cities():
     return render_template('list_cities.html', cities=cities)
-    #return "All the cities!"
 
 
 @app.route('/cities/<int:city_id>/')
@@ -54,7 +53,7 @@ def delete_city(city_id):
 
 @app.route('/cities/<int:city_id>/activities/')
 def list_activities(city_id):
-    return "List all the activities!"
+    return render_template('list_activities.html', city=my_city, activities=activities)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
