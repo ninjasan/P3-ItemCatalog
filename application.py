@@ -43,7 +43,7 @@ def new_city():
 
 @app.route('/cities/<int:city_id>/edit/')
 def edit_city(city_id):
-    return "We need to fix this city!"
+    return render_template('edit_city.html', city=my_city)
 
 
 @app.route('/cities/<int:city_id>/delete/')
