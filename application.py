@@ -63,7 +63,7 @@ def activity(city_id, activity_id):
 
 @app.route('/cities/<int:city_id>/activities/new/')
 def new_activity(city_id):
-    return "This place needs more things to do!"
+    return render_template('new_activity.html', city=my_city)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/edit/')
