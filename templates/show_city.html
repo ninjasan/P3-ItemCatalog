@@ -8,7 +8,7 @@
     <div class="header">
         City of {{city.name}}
     </div>
-    <div class="warning">
+    <div class="body">
         <p>Let's pretend I'm telling you something cool about this city.</p>
 
         <p>Wow, that was super interesting!</p>
@@ -16,14 +16,17 @@
 
         <p>Edit?</p>
         <p>Delete?</p>
+
         <p>Activities</p>
         <div class="list">
             <ul>
             {% for activity in activities %}
-                <li>{{activity.name}}</li>
+                <li><a href="{{url_for('show_activity', city_id=city.id, activity_id=activity.id)}}">{{activity.name}}</a></li>
             {% endfor %}
             </ul>
         </div>
+        <p>Have an idea for a new activity?</p>
+        <p>To add it, <a href="{{url_for('new_activity', city_id=city.id)}}">click here</a>!</p>
 
         <p><a href="{{url_for('list_cities')}}">back</a></p>
     </div>

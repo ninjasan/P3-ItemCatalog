@@ -17,11 +17,11 @@ my_city = {'name': "Seattle", 'id': 1}
 #          {'name': "Portland", 'id': 2},
 #          {'name': "Vancouver", "id": 3},
 #          {'name': "Chicago", "id": 4}]
-my_activity = {'name': "Greenlake", 'id': 1, 'city_id': 1, 'description': "walk around the lake", 'category': "outdoors"}
-activities = [{'name': "Greenlake", 'id': 1, 'city_id': 1, 'description': "walk around the lake", 'category': "outdoors"},
-              {'name': "mkt.", 'id': 2, 'city_id': 1, 'description': "eat delicious food by Ethan Stowell", 'category': "food"},
-              {'name': "Chihuly Glass Garden", 'id': 3, 'city_id': 1, 'description': "gorgeous glass museum", 'category': "museums"},
-              {'name': "Space Needle", 'id': 4, 'city_id': 1, 'description': "Visit Seattle's vision of the future from the 1969 World's Fair", 'category': "sightseeing"}]
+my_activity = {'name': "Greenlake", 'id': 1, 'city_id': 2, 'description': "walk around the lake", 'category': "outdoors"}
+#activities = [{'name': "Greenlake", 'id': 1, 'city_id': 2, 'description': "walk around the lake", 'category': "outdoors"},
+#              {'name': "mkt.", 'id': 2, 'city_id': 2, 'description': "eat delicious food by Ethan Stowell", 'category': "food"},
+#              {'name': "Chihuly Glass Garden", 'id': 3, 'city_id': 2, 'description': "gorgeous glass museum", 'category': "museums"},
+#              {'name': "Space Needle", 'id': 4, 'city_id': 2, 'description': "Visit Seattle's vision of the future from the 1969 World's Fair", 'category': "sightseeing"}]
 
 @app.route('/')
 @app.route('/home/')
@@ -57,7 +57,9 @@ def delete_city(city_id):
 @app.route('/cities/<int:city_id>/activities/')
 @app.route('/cities/<int:city_id>/')
 def show_city(city_id):
-    return render_template('show_city.html', city=my_city, activities=activities)
+    city = session.query(City).filter(City.id == city_id).one()
+    activities = session.query(Activity).filter(Activity.city_id == city_id).all()
+    return render_template('show_city.html', city=city, activities=activities)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
@@ -65,9 +67,20 @@ def show_activity(city_id, activity_id):
     return render_template('show_activity.html', city=my_city, activity=my_activity)
 
 
-@app.route('/cities/<int:city_id>/activities/new/')
+@app.route('/cities/<int:city_id>/activities/new/', methods=['GET', 'POST'])
 def new_activity(city_id):
-    return render_template('new_activity.html', city=my_city)
+    city = session.query(City).filter(City.id == city_id).one()
+    if request.method == 'POST':
+        activity_to_add = Activity(name=request.form['name'],
+                                   city_id=city_id,
+                                   category=request.form['category'],
+                                   description=request.form['description'])
+        session.add(activity_to_add)
+        session.commit()
+
+        return redirect(url_for('show_city', city_id=city_id))
+    else:
+        return render_template('new_activity.html', city=city)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/edit/')
