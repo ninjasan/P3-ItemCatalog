@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="header">
+        Edit {{activity.name}} for {{city.name}}?
+    </div>
+    <p class="warning">
+        <p>Something out of date?</p>
+        <p>Thanks for your help!</p>
+
+        <p>Submit Button</p>
+        <p><a href="{{url_for('list_activities', city_id=city.id)}}">Cancel</a></p>
+    </div>
+</body>
+</html>

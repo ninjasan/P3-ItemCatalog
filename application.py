@@ -68,7 +68,7 @@ def new_activity(city_id):
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/edit/')
 def edit_activity(city_id, activity_id):
-    return "Let's change this thing!"
+    return render_template('edit_activity.html', city=my_city, activity=my_activity)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/delete/')
