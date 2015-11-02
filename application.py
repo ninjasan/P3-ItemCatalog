@@ -11,6 +11,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
+debugging = True
 #fake data for now
 my_city = {'name': "Seattle", 'id': 1}
 #cities = [{'name': "Seattle", 'id': 1},
@@ -29,6 +30,13 @@ my_activity = {'name': "Greenlake", 'id': 1, 'city_id': 2, 'description': "walk 
 @app.route('/cities/')
 def list_cities():
     cities = session.query(City).all()
+    # adding print for debugging purposes
+    if debugging:
+        for city in cities:
+            print city.name
+            activities = session.query(Activity).filter(Activity.city_id == city.id).all()
+            for activity in activities:
+                print "    " + activity.name
     return render_template('list_cities.html', cities=cities)
 
 
@@ -61,8 +69,11 @@ def edit_city(city_id):
 @app.route('/cities/<int:city_id>/delete/', methods=['GET', 'POST'])
 def delete_city(city_id):
     city = session.query(City).filter(City.id == city_id).one()
+    activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     if request.method == 'POST':
         session.delete(city)
+        for activity in activities:
+            session.delete(activity)
         session.commit()
 
         return redirect(url_for('list_cities'))
