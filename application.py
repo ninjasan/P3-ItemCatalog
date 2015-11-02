@@ -44,9 +44,18 @@ def new_city():
         return render_template('new_city.html')
 
 
-@app.route('/cities/<int:city_id>/edit/')
+@app.route('/cities/<int:city_id>/edit/', methods=['GET', 'POST'])
 def edit_city(city_id):
-    return render_template('edit_city.html', city=my_city)
+    city = session.query(City).filter(City.id == city_id).one()
+    if request.method == 'POST':
+        session.query(City).filter(City.id == city_id).update({City.name: request.form['name'],
+                                                               City.state_provence: request.form['state'],
+                                                               City.country: request.form['country']},
+                                                              synchronize_session=False)
+        session.commit()
+        return redirect(url_for('show_city', city_id=city.id))
+    else:
+        return render_template('edit_city.html', city=city)
 
 
 @app.route('/cities/<int:city_id>/delete/', methods=['GET', 'POST'])
@@ -55,7 +64,7 @@ def delete_city(city_id):
     if request.method == 'POST':
         session.delete(city)
         session.commit()
-        
+
         return redirect(url_for('list_cities'))
     else:
         return render_template('delete_city.html', city=city)
