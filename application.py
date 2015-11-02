@@ -112,9 +112,19 @@ def new_activity(city_id):
         return render_template('new_activity.html', city=city)
 
 
-@app.route('/cities/<int:city_id>/activities/<int:activity_id>/edit/')
+@app.route('/cities/<int:city_id>/activities/<int:activity_id>/edit/', methods=['GET', 'POST'])
 def edit_activity(city_id, activity_id):
-    return render_template('edit_activity.html', city=my_city, activity=my_activity)
+    city = session.query(City).filter(City.id == city_id).one()
+    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    if request.method == 'POST':
+        session.query(Activity).filter(Activity.id == activity_id).update({Activity.name: request.form['name'],
+                                                                           Activity.description: request.form['description'],
+                                                                           Activity.category: request.form['category'],
+                                                                           Activity.website: request.form['website']})
+        session.commit()
+        return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
+    else:
+        return render_template('edit_activity.html', city=city, activity=activity)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/delete/')
