@@ -127,9 +127,16 @@ def edit_activity(city_id, activity_id):
         return render_template('edit_activity.html', city=city, activity=activity)
 
 
-@app.route('/cities/<int:city_id>/activities/<int:activity_id>/delete/')
+@app.route('/cities/<int:city_id>/activities/<int:activity_id>/delete/', methods=['GET', 'POST'])
 def delete_activity(city_id, activity_id):
-    return render_template('delete_activity.html', city=my_city, activity=my_activity)
+    city = session.query(City).filter(City.id == city_id).one()
+    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    if request.method == 'POST':
+        session.delete(activity)
+        session.commit()
+        return redirect(url_for('show_city', city_id=city_id))
+    else:
+        return render_template('delete_activity.html', city=city, activity=activity)
 
 
 if __name__ == '__main__':
