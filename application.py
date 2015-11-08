@@ -8,21 +8,11 @@ app = Flask(__name__)
 
 engine = create_engine('sqlite:///vacation_catalog.db')
 Base.metadata.bind = engine
-DBSession = sessionmaker(bind = engine)
+DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 debugging = True
-#fake data for now
-my_city = {'name': "Seattle", 'id': 1}
-#cities = [{'name': "Seattle", 'id': 1},
-#          {'name': "Portland", 'id': 2},
-#          {'name': "Vancouver", "id": 3},
-#          {'name': "Chicago", "id": 4}]
-my_activity = {'name': "Greenlake", 'id': 1, 'city_id': 2, 'description': "walk around the lake", 'category': "outdoors"}
-#activities = [{'name': "Greenlake", 'id': 1, 'city_id': 2, 'description': "walk around the lake", 'category': "outdoors"},
-#              {'name': "mkt.", 'id': 2, 'city_id': 2, 'description': "eat delicious food by Ethan Stowell", 'category': "food"},
-#              {'name': "Chihuly Glass Garden", 'id': 3, 'city_id': 2, 'description': "gorgeous glass museum", 'category': "museums"},
-#              {'name': "Space Needle", 'id': 4, 'city_id': 2, 'description': "Visit Seattle's vision of the future from the 1969 World's Fair", 'category': "sightseeing"}]
+
 
 @app.route('/')
 @app.route('/home/')
