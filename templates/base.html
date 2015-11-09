@@ -23,13 +23,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand"href="#">Roadtrip</a>
+                    <a class="navbar-brand"href="{{url_for('list_cities')}}">Roadtrip</a>
                 </div>
                 <div class="collapse navbar-collapse" id="nav_bar_options">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{url_for('list_cities')}}">Cities</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="{{url_for('about')}}">About</a></li>
+                        <li><a href="{{url_for('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
