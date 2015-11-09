@@ -13,6 +13,15 @@ session = DBSession()
 
 debugging = True
 
+@app.route('/login/')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/about/')
+def about():
+    return render_template('about.html')
+
 
 @app.route('/')
 @app.route('/home/')
@@ -76,7 +85,8 @@ def delete_city(city_id):
 def show_city(city_id):
     city = session.query(City).filter(City.id == city_id).one()
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
-    return render_template('show_city.html', city=city, activities=activities)
+    size = len(activities)
+    return render_template('show_city.html', city=city, activities=activities, size=size)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
