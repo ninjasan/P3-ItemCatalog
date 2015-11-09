@@ -48,7 +48,7 @@
                     {% endif %}
                     {% if index+col == size %}
                         <p><img src="http://www.placehold.it/200x200"></p>
-                        <p>?</p>
+                        <p><span class="glyphicon glyphicon-plus"></span></p>
                         <p>Have an idea for a new activity? To add it, </p>
                         <p><a href="{{url_for('new_activity', city_id=city.id)}}">click here</a>!</p>
                     {% endif %}
@@ -57,8 +57,20 @@
         </div>
     {% endfor %}
 
-<!--
-        <p><a href="{{url_for('edit_city', city_id=city.id)}}">Edit</a></p>
-        <p><a href="{{url_for('delete_city', city_id=city.id)}}">Delete</a></p>
--->
+    <div class="row text-center">
+        <div class="col-md-12">
+            <p>
+                <a href="{{url_for('edit_city', city_id=city.id)}}"
+                   class="btn btn-default"
+                   role="button">
+                    Edit
+                </a>
+                <a href="{{url_for('delete_city', city_id=city.id)}}"
+                   class="btn btn-default"
+                   role="button">
+                    Delete
+                </a>
+            </p>
+        </div>
+    </div>
 {% endblock content %}
