@@ -1,22 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <div class="header">
-        {{activity.name}}
-    </div>
-    <div class="body">
-        <p>Let's pretend I'm telling you something cool about this activity.</p>
+{% extends "base.html" %}
+{% block title %}Roadtrip to {{activity.name}}{% endblock title %}
 
-        <p>Wow, that was super interesting!</p>
-        <p>I feel so informed now!</p>
-
-        <p><a href="{{url_for('edit_activity', city_id=city.id, activity_id=activity.id)}}">Edit</a></p>
-        <p><a href="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}">Delete</a></p>
-        <p><a href="{{url_for('show_city', city_id=city.id)}}">Back</a></p>
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img src="http://www.placehold.it/800x300">
+        </div>
     </div>
-</body>
-</html>
+    <div class="row">
+        <div class="col-md-6">
+            <p>{{activity.name}}</p>
+        </div>
+        <div class="col-md-6">
+            <p>Let's pretend I'm telling you something cool about this activity.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <p>
+                <a href="{{url_for('edit_activity', city_id=city.id, activity_id=activity.id)}}"
+                   class="btn btn-default"
+                   role="button">
+                    Edit
+                </a>
+                <a href="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}"
+                   class="btn btn-default"
+                   role="button">
+                    Delete
+                </a>
+                <a href="{{url_for('show_city', city_id=city.id)}}"
+                   class="btn btn-default"
+                   role="button">
+                    Back
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock content %}
