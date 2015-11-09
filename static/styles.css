@@ -1,0 +1,51 @@
+html {
+    height 100%;
+}
+
+body {
+    color: lightblue;
+    height: 100%;
+}
+
+.header {
+    font-size: 24px;
+}
+
+footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #333333;
+}
+
+.initial {
+    background-image: url("http://placehold.it/1920x1080");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center top;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+#login_content {
+    min-height: 100%;
+}
+
+.city_item {
+    margin: 35px;
+    display: table;
+    vertical-align: middle;
+}
+
+/*.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.city_item img {
+    display: table-cell;
+    vertical-align: middle;
+}*/

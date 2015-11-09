@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--LatestcompiledandminifiedCSS-->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+        <!--jQuerylibrary-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!--LatestcompiledJavaScript-->
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+        <title> {% block title %}{% endblock title %} </title>
+        {% block extend_head %}
+        {% endblock extend_head%}
+    </head>
+    <body {% block body_attr %} {% endblock body_attr %}>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_bar_options">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand"href="#">Roadtrip</a>
+                </div>
+                <div class="collapse navbar-collapse" id="nav_bar_options">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{url_for('list_cities')}}">Cities</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container header">
+            {% block header %}
+            {% endblock header %}
+        </div>
+
+        <div class="container content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <footer class="container-fluid text-center">
+            <p>Made by me!</p>
+        </footer>
+        {% block scripts %}
+        {% endblock scripts %}
+    </body>
+</html>
