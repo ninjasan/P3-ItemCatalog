@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <div class="header">
-        List of cities
-    </div>
-    <div class="body">
-        <ul>
-        {% for city in cities %}
-            <li><a href="{{url_for('show_city', city_id=city.id)}}">{{city.name}}</a></li>
-        {% endfor %}
-        </ul>
-    </div>
+{% extends "base.html" %}
+{% block title %}Roadtrip{% endblock title %}
+{% block header %}Cities{% endblock header %}
+
+{% block content %}
+    {% for city in cities %}
+        <div class="row city_item">
+            <div class="col-md-4">
+                <span class="helper"></span>
+                <img src="http://www.placehold.it/350x150">
+            </div>
+            <div class="col-md-8">
+                <p>{{city.name}}, {{city.state_provence}}, {{city.country}}</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
+                <a href="{{url_for('show_city', city_id=city.id)}}">...learn more</a>
+            </div>
+        </div>
+    {% endfor %}
     <p>To add a new city <a href="{{url_for('new_city')}}">click here</a>.</p>
-</body>
-</html>
+{% endblock content %}
