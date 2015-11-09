@@ -1,34 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <div class="header">
-        City of {{city.name}}
+{% extends "base.html" %}
+{% block title %}Roadtrip to {{city.name}}{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img src="http://www.placehold.it/800x300">
+        </div>
     </div>
-    <div class="body">
-        <p>Let's pretend I'm telling you something cool about this city.</p>
 
-        <p>Wow, that was super interesting!</p>
-        <p>I feel so informed now!</p>
+    <div class="row">
+        <div class="col-md-6">
+            Info
+        </div>
+        <div class="col-md-6">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Activities</h2>
+        </div>
+    </div>
+
+    {% if size is divisibleby(3) %}
+        {% for index in range(0, size, 3) %}
+            <div class="row text-center">
+                <!-- if there are more than 3 items left draw all column with data -->
+                {% for adjustment in range(0, 3)%}
+                    <div class="col-md-4">
+                        <p><img src="http://www.placehold.it/200x200"></p>
+                        <p>{{activities[index+adjustment].name}}</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum.</p>
+                        <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activities[index+adjustment].id)}}">Learn More...</a></p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Now display any leftover items -->
+    <div class="row text-center">
+        {% set leftover = size % 3 %}
+        {% for index in range(size-leftover, size) %}
+            <div class="col-md-4">
+                <p><img src="http://www.placehold.it/200x200"></p>
+                <p>{{activities[index].name}}</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum.</p>
+                <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activities[index].id)}}">Learn More...</a></p>
+            </div>
+        {% endfor %}
+        <!-- Add one last item for adding a new activity -->
+        <div class="col-md-4">
+            <p><img src="http://www.placehold.it/200x200"></p>
+            <p>?</p>
+            <p>Have an idea for a new activity? To add it, </p>
+            <p><a href="{{url_for('new_activity', city_id=city.id)}}">click here</a>!</p>
+        </div>
+    </div>
+
+<!--
         <p><a href="{{url_for('edit_city', city_id=city.id)}}">Edit</a></p>
         <p><a href="{{url_for('delete_city', city_id=city.id)}}">Delete</a></p>
-
-        <p>Activities</p>
-        <div class="list">
-            <ul>
-            {% for activity in activities %}
-                <li><a href="{{url_for('show_activity', city_id=city.id, activity_id=activity.id)}}">{{activity.name}}</a></li>
-            {% endfor %}
-            </ul>
-        </div>
-        <p>Have an idea for a new activity?</p>
-        <p>To add it, <a href="{{url_for('new_activity', city_id=city.id)}}">click here</a>!</p>
-
-        <p><a href="{{url_for('list_cities')}}">back</a></p>
-    </div>
-</body>
-</html>
+-->
+{% endblock content %}
