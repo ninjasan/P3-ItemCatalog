@@ -17,7 +17,7 @@ header {
     background-size: cover;
 }
 
-.city_header {
+.city_header, .activity_header {
   background-color: #808080;
   background: no-repeat center center;
   background-attachment: scroll;
@@ -44,6 +44,14 @@ header {
 .activity_item {
     padding-left: 40px;
     padding-right: 40px;
+}
+
+.activity_description {
+    background-color: #ffffff;
+}
+
+.activity_basic_info {
+    background-color: #cccccc;
 }
 
 img.city_header {

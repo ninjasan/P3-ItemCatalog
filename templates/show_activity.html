@@ -1,40 +1,61 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip to {{activity.name}}{% endblock title %}
 
+{% block header_attr %}class="activity_header" style="background-image: url('http://www.placehold.it/800x300')"{% endblock header_attr %}
+{% block header %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{{activity.name}}</h1>
+                    <hr class="small">
+                    <span class="subheading">On a roadtrip to {{city.name}}</span>
+                </div>
+            </div>
+        </div>
+{% endblock header %}
+
 {% block content %}
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <img src="http://www.placehold.it/800x300">
+    <section class="activity_description">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                    <p>{{activity.description}}</p>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <p>{{activity.name}}</p>
+    </section>
+    <section class="activity_basic_info">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                    <p>Basic Info</p>
+                    <p>Category: {{activity.category}}</p>
+                    <p>Website: {{activity.website}}</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <p>Let's pretend I'm telling you something cool about this activity.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
-        </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-md-12">
-            <p>
-                <a href="{{url_for('edit_activity', city_id=city.id, activity_id=activity.id)}}"
-                   class="btn btn-default"
-                   role="button">
-                    Edit
-                </a>
-                <a href="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}"
-                   class="btn btn-default"
-                   role="button">
-                    Delete
-                </a>
-                <a href="{{url_for('show_city', city_id=city.id)}}"
-                   class="btn btn-default"
-                   role="button">
-                    Back
-                </a>
-            </p>
+    </section>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <p>
+                    <a href="{{url_for('edit_activity', city_id=city.id, activity_id=activity.id)}}"
+                       class="btn btn-default"
+                       role="button">
+                        Edit
+                    </a>
+                    <a href="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}"
+                       class="btn btn-default"
+                       role="button">
+                        Delete
+                    </a>
+                    <a href="{{url_for('show_city', city_id=city.id)}}"
+                       class="btn btn-default"
+                       role="button">
+                        Back
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 {% endblock content %}
