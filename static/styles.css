@@ -1,51 +1,43 @@
-html {
-    height 100%;
-}
-
-body {
-    color: lightblue;
+html, body {
     height: 100%;
 }
 
-.header {
-    font-size: 24px;
-}
+header {
 
-footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #333333;
 }
 
 .initial {
-    background-image: url("http://placehold.it/1920x1080");
+    background-image: url("https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center top;
+    background-position: center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-
 }
 
-#login_content {
+.wrapper {
     min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -4em;
 }
 
 .city_item {
     margin: 35px;
-    display: table;
+}
+
+h3 {
     vertical-align: middle;
 }
 
-/*.helper {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
+.push {
+    height: 4em;
 }
 
-.city_item img {
-    display: table-cell;
-    vertical-align: middle;
-}*/
+.footer {
+    background-color: #333333;
+    color: lightblue;
+    height: 4em;
+}

@@ -15,37 +15,40 @@
         {% endblock extend_head%}
     </head>
     <body {% block body_attr %} {% endblock body_attr %}>
-        <nav class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_bar_options">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand"href="{{url_for('list_cities')}}">Roadtrip</a>
+        <div class="wrapper">
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_bar_options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand"href="{{url_for('list_cities')}}">Roadtrip</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="nav_bar_options">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{url_for('list_cities')}}">Cities</a></li>
+                            <li><a href="{{url_for('about')}}">About</a></li>
+                            <li><a href="{{url_for('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="collapse navbar-collapse" id="nav_bar_options">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{url_for('list_cities')}}">Cities</a></li>
-                        <li><a href="{{url_for('about')}}">About</a></li>
-                        <li><a href="{{url_for('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
-                </div>
+            </nav>
+
+            <header {% block header_attr %} {% endblock header_attr %}>
+                {% block header %}
+                {% endblock header %}
+            </header>
+
+            <div class="content">
+                {% block content %}
+                {% endblock content %}
             </div>
-        </nav>
-
-        <div class="container header">
-            {% block header %}
-            {% endblock header %}
+            <div class="push"></div>
         </div>
 
-        <div class="container content">
-            {% block content %}
-            {% endblock content %}
-        </div>
-
-        <footer class="container-fluid text-center">
+        <footer class="container-fluid text-center footer">
             <p>Made by me!</p>
         </footer>
         {% block scripts %}

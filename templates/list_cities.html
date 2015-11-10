@@ -1,20 +1,36 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip{% endblock title %}
-{% block header %}Cities{% endblock header %}
 
-{% block content %}
-    {% for city in cities %}
-        <div class="row city_item">
-            <div class="col-md-4">
-                <span class="helper"></span>
-                <img src="http://www.placehold.it/350x150">
+    {% block header_attr %}class="container"{% endblock header_attr %}
+        {% block header %}
+            <div class="row">
+                <div class="col-xs-9">
+                    <h1>Cities</h1>
+                </div>
+                <div class="col-xs-2 text-right">
+                    <a href="{{url_for('new_city')}}" class="btn btn-info" role="button">Add new</a>
+                </div>
+                <div class="col-xs-1">
+                    <a href="#" class="btn btn-info" role="button">Sort</a>
+                </div>
             </div>
-            <div class="col-md-8">
-                <p>{{city.name}}, {{city.state_provence}}, {{city.country}}</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
-                <a href="{{url_for('show_city', city_id=city.id)}}">...learn more</a>
-            </div>
+    {% endblock header %}
+
+    {% block content %}
+        <div class="container">
+            {% for city in cities %}
+                <div class="row city_item">
+                    <div class="col-md-4">
+                        <img class="img-responsive" src="http://placehold.it/350x150">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>
+                            {{city.name}}, {{city.state_provence}}, {{city.country}}
+                            <a href="{{url_for('show_city', city_id=city.id)}}" class="btn btn-default">Learn more</a>
+                        </h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-    <p>To add a new city <a href="{{url_for('new_city')}}">click here</a>.</p>
-{% endblock content %}
+    {% endblock content %}
