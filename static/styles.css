@@ -17,6 +17,19 @@ header {
     background-size: cover;
 }
 
+.city_header {
+  background-color: #808080;
+  background: no-repeat center center;
+  background-attachment: scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  margin-bottom: 50px;
+  padding: 100px 0 50px;
+  color: white;
+}
+
 .wrapper {
     min-height: 100%;
     height: auto !important;
@@ -28,8 +41,25 @@ header {
     margin: 35px;
 }
 
-h3 {
-    vertical-align: middle;
+.activity_item {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+img.city_header {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+img.city_activity {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .push {
