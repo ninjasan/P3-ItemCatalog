@@ -22,6 +22,7 @@ class City(Base):
     state_provence = Column(String(100))
     country = Column(String(100))
     description = Column(String(1000))
+    image = Column(String(150))
     user = relationship(User)
 
 
