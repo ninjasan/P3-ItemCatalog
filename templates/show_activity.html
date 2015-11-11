@@ -35,27 +35,29 @@
             </div>
         </div>
     </section>
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-12">
-                <p>
-                    <a href="{{url_for('edit_activity', city_id=city.id, activity_id=activity.id)}}"
-                       class="btn btn-default"
-                       role="button">
-                        Edit
-                    </a>
-                    <a href="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}"
-                       class="btn btn-default"
-                       role="button">
-                        Delete
-                    </a>
-                    <a href="{{url_for('show_city', city_id=city.id)}}"
-                       class="btn btn-default"
-                       role="button">
-                        Back
-                    </a>
-                </p>
+    <section class="activity_buttons">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p>
+                        <a href="{{url_for('edit_activity', city_id=city.id, activity_id=activity.id)}}"
+                           class="btn btn-default"
+                           role="button">
+                            Edit
+                        </a>
+                        <a href="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}"
+                           class="btn btn-default"
+                           role="button">
+                            Delete
+                        </a>
+                        <a href="{{url_for('show_city', city_id=city.id)}}"
+                           class="btn btn-default"
+                           role="button">
+                            Back
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock content %}

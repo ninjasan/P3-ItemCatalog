@@ -48,10 +48,18 @@ header {
 
 .activity_description {
     background-color: #ffffff;
+    padding-bottom: 50px;
 }
 
 .activity_basic_info {
     background-color: #cccccc;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.activity_buttons {
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 img.city_header {
