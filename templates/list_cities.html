@@ -32,5 +32,18 @@
                     </div>
                 </div>
             {% endfor %}
+            <!-- Add one more row, for a new city -->
+            <div class="row city_item">
+                    <div class="col-md-4">
+                        <img class="img-responsive" src="http://placehold.it/350x150">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>
+                            Have an idea for a new location?
+                            <a href="{{url_for('new_city')}}" class="btn btn-info" role="button">Add new</a>
+                        </h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
+                    </div>
+                </div>
         </div>
     {% endblock content %}

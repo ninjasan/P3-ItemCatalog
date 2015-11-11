@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip{% endblock title %}
+{% block extend_head %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+{% endblock extend_head%}
+
+
 {% block body_attr %}class="initial"{% endblock body_attr %}
 
         {% block header_attr %}class="container text-center"{% endblock header_attr %}
@@ -20,16 +26,16 @@
                             State: {{state}}
                         </div>
 
-                        <div>
+                        <div id="fb_signin_button">
                             <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
                                 <a href='javascript:sentTokenToServer()'>Login with Facebook</a>
                             </fb:login-button>
                         </div>
 
-                        <div id="signInButton">
+                        <div id="g_signin_button">
                             <span class="g-signin"
                                   data-scope="openid email"
-                                  data-clientid="45416420592-ph6ri6gkm4g027k37h2gvc6hqk5287oc.apps.googleusercontent.com"
+                                  data-clientid="45416420592-nmaois8qk9nc3e9i2ncu632fk23s6lak.apps.googleusercontent.com"
                                   data-redirecturi="postmessage"
                                   data-accesstype="offline"
                                   data-cookiepolicy="single_host_origin"
@@ -52,7 +58,7 @@
             function signInCallback(authResult) {
                 if (authResult['code']) {
                     //Hide the sign-in button now that the user is authorized
-                    $('#signInButton').attr('style', 'display: none');
+                    $('#g_signin_button).attr('style', 'display: none');
 
                     //send one time use code to server
                     //if server responds, write login successful to page
@@ -68,7 +74,7 @@
                             if(result) {
                                 $('#result').html('Login Successful!<br>' + result + '</br>Redirecting...')
                                 setTimeout(function() {
-                                    window.location.href = "/restaurant";
+                                    window.location.href = "/cities";
                                 }, 4000);
                             } else if (authResult['error']) {
                                 console.log('There was an error: ' + authResult['error']);
@@ -84,7 +90,7 @@
         <script>
             window.fbAsyncInit = function() {
                 FB.init({
-                    appId      : '171232593223341',
+                    appId      : '994181073972702',
                     cookie     : true,
                     xfbml      : true,
                     version    : 'v2.5'
@@ -118,7 +124,7 @@
                             if (result) {
                                 $('#result').html('Login Sucessful!</br>'+ result + '</br>Redirecting...')
                                 setTimeout(function() {
-                                    window.location.href = "/restaurant";
+                                    window.location.href = "/cities";
                                 }, 4000);
                             } else {
                                 $('#result').html('Failed to make a server-side call. Check your configuration and console.');
