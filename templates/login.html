@@ -35,7 +35,7 @@
                         <div id="g_signin_button">
                             <span class="g-signin"
                                   data-scope="openid email"
-                                  data-clientid="45416420592-nmaois8qk9nc3e9i2ncu632fk23s6lak.apps.googleusercontent.com"
+                                  data-clientid="299731669346-ok2lqou9m64ccqs7odq5ck1l35qi1f2h.apps.googleusercontent.com"
                                   data-redirecturi="postmessage"
                                   data-accesstype="offline"
                                   data-cookiepolicy="single_host_origin"
@@ -58,8 +58,8 @@
             function signInCallback(authResult) {
                 if (authResult['code']) {
                     //Hide the sign-in button now that the user is authorized
-                    $('#g_signin_button).attr('style', 'display: none');
-
+                    $('#g_signin_button').attr('style', 'display: none');
+                    console.log("in callback");
                     //send one time use code to server
                     //if server responds, write login successful to page
                     //redirect to home
@@ -72,13 +72,16 @@
                         success: function(result) {
                             //handle or verify the server if necessary
                             if(result) {
+                                console.log("success");
                                 $('#result').html('Login Successful!<br>' + result + '</br>Redirecting...')
                                 setTimeout(function() {
                                     window.location.href = "/cities";
                                 }, 4000);
                             } else if (authResult['error']) {
+                                console.log("not success");
                                 console.log('There was an error: ' + authResult['error']);
                             } else {
+                                console.log("why are you wasting time");
                                 $('#result').html('Failed to make a server-side call. Check your configuration and console.');
                             }
                         }

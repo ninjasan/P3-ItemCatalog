@@ -14,7 +14,7 @@ from flask import make_response
 import requests
 
 CLIENT_ID = json.loads(open('client_secret.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Roadtrip Catalog"
+APPLICATION_NAME = "Roadtrip Catalog App"
 
 app = Flask(__name__)
 
@@ -167,7 +167,7 @@ def gconnect():
     try:
         # turn the auth code into a credentials object
         print "trying to turn auth code into creds object"
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('client_secret.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -216,7 +216,7 @@ def gconnect():
         return response
 
     # store access token in the session for later use
-    login_session['credentials'] = credentials
+    login_session['credentials'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
 
     # get user info (to prove you can)
@@ -240,12 +240,16 @@ def gconnect():
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
+    print "Username: " + login_session['username']
+
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    print "picture url: " + login_session['picture']
+    output += '" style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     # flash("you are now logged in as %s" % login_session['username'])
     print "done!"
+    print output
     return output
 
 
@@ -257,7 +261,7 @@ def gdisconnect():
         response = make_response(json.dumps("Current user is not connect."), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    access_token = credentials.access_token
+    access_token = credentials
     url = 'https://accounts.google.com/o/oauth2/revoke?token={0}'.format(access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
