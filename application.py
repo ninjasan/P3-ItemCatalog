@@ -76,7 +76,9 @@ def edit_city(city_id):
     if request.method == 'POST':
         session.query(City).filter(City.id == city_id).update({City.name: request.form['name'],
                                                                City.state_provence: request.form['state'],
-                                                               City.country: request.form['country']},
+                                                               City.country: request.form['country'],
+                                                               City.description: request.form['description'],
+                                                               City.image: request.form['image']},
                                                               synchronize_session=False)
         session.commit()
         flash("{0} has been successfully editted".format(city.name))
