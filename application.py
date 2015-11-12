@@ -124,6 +124,7 @@ def new_activity(city_id):
         print request.form
         activity_to_add = Activity(name=request.form['name'],
                                    city_id=city_id,
+                                   address=request.form['address'],
                                    category=request.form['category'],
                                    description=request.form['description'],
                                    website=request.form['website'],
@@ -143,10 +144,13 @@ def edit_activity(city_id, activity_id):
     activity = session.query(Activity).filter(Activity.id == activity_id).one()
     if request.method == 'POST':
         session.query(Activity).filter(Activity.id == activity_id).update({Activity.name: request.form['name'],
+                                                                           Activity.address: request.form['address'],
                                                                            Activity.description: request.form['description'],
                                                                            Activity.category: request.form['category'],
-                                                                           Activity.website: request.form['website']})
+                                                                           Activity.website: request.form['website'],
+                                                                           Activity.image: request.form['image']})
         session.commit()
+        flash("This item has been successfully editted!")
         return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
     else:
         return render_template('edit_activity.html', city=city, activity=activity)
