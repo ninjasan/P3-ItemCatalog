@@ -56,7 +56,18 @@ def list_cities():
 @app.route('/cities/new/', methods=['GET', 'POST'])
 def new_city():
     if request.method == 'POST':
-        city_to_add = City(name=request.form['name'])
+        print "Creating new city"
+        print request.form['name']
+        print request.form['state']
+        print request.form['description']
+        print request.form['image']
+        print login_session['user_id']
+        city_to_add = City(name=request.form['name'],
+                           state_provence=request.form['state'],
+                           country=request.form['country'],
+                           description=request.form['description'],
+                           image=request.form['image'],
+                           user_id=login_session['user_id'])
         session.add(city_to_add)
         session.commit()
 
