@@ -48,9 +48,9 @@
                 {% for col in range(0, 3)%}
                     <div class="col-md-4 activity_item">
                         {% if index+col < size %}
-                            <p><img class="img-responsive city_activity" src="http://www.placehold.it/200x200"></p>
+                            <p><img class="img-responsive city_activity" src="{{activities[index+col].image}}"></p>
                             <h4>{{activities[index+col].name}}</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum.</p>
+                            <p>{{activities[index+col].description}}</p>
                             <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activities[index+col].id)}}">Learn More...</a></p>
                         {% endif %}
                         {% if index+col == size %}
