@@ -1,5 +1,5 @@
 __author__ = 'poojm'
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, flash
 from flask import session as login_session
 
 from sqlalchemy import create_engine
@@ -79,6 +79,7 @@ def edit_city(city_id):
                                                                City.country: request.form['country']},
                                                               synchronize_session=False)
         session.commit()
+        flash("{0} has been successfully editted".format(city.name))
         return redirect(url_for('show_city', city_id=city.id))
     else:
         return render_template('edit_city.html', city=city)
@@ -130,7 +131,7 @@ def new_activity(city_id):
                                    user_id=login_session['user_id'])
         session.add(activity_to_add)
         session.commit()
-
+        flash("{0} has been successfully added to {1}".format(activity_to_add.name, city.name))
         return redirect(url_for('show_city', city_id=city_id))
     else:
         return render_template('new_activity.html', city=city)
@@ -158,6 +159,7 @@ def delete_activity(city_id, activity_id):
     if request.method == 'POST':
         session.delete(activity)
         session.commit()
+        flash("The activity has been successfully deleted from {0}".format(city.name))
         return redirect(url_for('show_city', city_id=city_id))
     else:
         return render_template('delete_activity.html', city=city, activity=activity)
