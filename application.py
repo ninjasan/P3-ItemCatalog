@@ -96,7 +96,7 @@ def delete_city(city_id):
         for activity in activities:
             session.delete(activity)
         session.commit()
-
+        flash("The location has been successfully delete.")
         return redirect(url_for('list_cities'))
     else:
         return render_template('delete_city.html', city=city)

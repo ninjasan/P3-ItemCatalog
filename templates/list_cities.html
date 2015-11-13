@@ -18,6 +18,24 @@
 
     {% block content %}
         <div class="container">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                    <div class = 'flash'>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-info">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+
             {% for city in cities %}
                 <div class="row city_item">
                     <div class="col-md-4">
