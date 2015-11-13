@@ -2,22 +2,27 @@
 {% block title %}Delete {{activity.name}}?{% endblock title %}
 
 {% block header %}
-    Delete {{activity.name}} from {{city.name}}?
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                <h1>Delete {{activity.name}} from {{city.name}}?</h1>
+            </div>
+        </div>
+    </div>
 {% endblock header %}
-{% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <p>Are you sure you want to delete this activity?</p>
-            <p>What about all the other people that might want to try it?</p>
 
-            <form action="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}" method="post">
-                <p><input type="submit" class="btn btn-danger" value="Delete"></p>
-            </form>
-            <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activity.id)}}"
-               class="btn btn-default"
-               role="button">
-                Cancel
-            </a></p>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                <p>Are you sure you want to delete this activity?</p>
+                <p>What about all the other people that haven't been here yet?</p>
+
+                <form class="form-horizontal" role="form" action="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a class="btn btn-default" role="button" href="{{url_for('show_activity', city_id=city.id, activity_id=activity.id)}}">Cancel</a>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock content %}
