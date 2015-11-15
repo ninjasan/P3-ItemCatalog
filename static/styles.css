@@ -13,17 +13,18 @@
         min-height: 100%;
         height: auto !important;
         height: 100%;
-        margin: 0 auto -4em;
+        margin: 0 auto -50px;
     }
 
     .push {
-        height: 4em;
+        height: 50px;
     }
 
     .footer {
         background-color: #333333;
         color: lightblue;
-        height: 4em;
+        height: 50px;
+        padding-top: 15px;
     }
 
 /* ******************** */
