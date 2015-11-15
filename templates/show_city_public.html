@@ -73,13 +73,7 @@
                         <div class="col-md-4 city_activity_item">
                             {% if index+col < activities|length %}
                                 <div class="city_activity_item_bgimage"
-                                     style="background-image:url('{{activities[index+col].image}}');
-                                            background-repeat: no-repeat;
-                                            background-position: center center;
-                                            -webkit-background-size: cover;
-                                            -moz-background-size: cover;
-                                            -o-background-size: cover;
-                                            background-size: cover;">
+                                     style="background-image:url('{{activities[index+col].image}}');">
                                 </div>
                                 <div class="city_activity_item_text">
                                     <h4>{{activities[index+col].name}}</h4>

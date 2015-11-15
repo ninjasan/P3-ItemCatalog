@@ -47,8 +47,14 @@
         margin: 35px;
     }
 
-    .city_item_bgimage {
+    .city_item_bgimage, .city_activity_item_bgimage {
         height: 200px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
     }
 
     .city_item img {
@@ -106,10 +112,6 @@
         padding-left: 40px;
         padding-right: 40px;
         margin-bottom: 50px;
-    }
-
-    .city_activity_item_bgimage {
-        height: 200px;
     }
 
     .city_activity_item img {
