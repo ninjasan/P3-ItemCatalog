@@ -106,13 +106,13 @@
                 <div class="col-md-12">
                     <p>This city was added by: {{creator.name}}</p>
                     <p>
+                        {% block buttons %}
+                        {% endblock buttons %}
                         <a href="{{url_for('list_cities')}}"
                            class="btn btn-default"
                            role="button">
                             Back
                         </a>
-                        {% block buttons %}
-                        {% endblock buttons %}
                     </p>
                 </div>
             </div>
