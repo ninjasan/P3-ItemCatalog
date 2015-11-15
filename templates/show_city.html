@@ -1,99 +1,16 @@
-{% extends "base.html" %}
-{% block title %}Roadtrip to {{city.name}}{% endblock title %}
+{% extends "show_city_public.html" %}
 
-{% block header_attr %}class="city_header" style="background-image: url('{{city.image}}')"{% endblock header_attr %}
-{% block header %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1>{{city.name}}</h1>
-                    <hr class="small">
-                    <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
-                </div>
-            </div>
-        </div>
-{% endblock header %}
-
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
-                <p>{{city.description}}</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
-                <div class = 'flash'>
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-info">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <h3>Activities</h3>
-            </div>
-        </div>
-
-        {% if size is divisibleby(3) %}
-            <!-- then need to add one more row for add new, and two extra col -->
-            {% set cols = size + 3 %}
-        {% endif %}
-        {% if size % 3 == 1 %}
-            <!-- if mod 3 = 1, then need to add new, and extra col -->
-            {% set cols = size+2 %}
-        {% endif %}
-        {% if size % 3 == 2 %}
-            <!-- if mod 3 = 2, then meed to add new -->
-            {% set cols = size+1 %}
-        {% endif %}
-        {% for index in range(0, cols, 3) %}
-            <div class="row text-center">
-                <!-- if there are more than 3 items left draw all column with data -->
-                {% for col in range(0, 3)%}
-                    <div class="col-md-4 activity_item">
-                        {% if index+col < size %}
-                            <p><img class="img-responsive city_activity" src="{{activities[index+col].image}}"></p>
-                            <h4>{{activities[index+col].name}}</h4>
-                            <p>{{activities[index+col].description}}</p>
-                            <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activities[index+col].id)}}">Learn More...</a></p>
-                        {% endif %}
-                        {% if index+col == size %}
-                            <p><img class="img-responsive city_activity" src="{{url_for('static', filename='addnew.png')}}"></p>
-                            <h4>Add New Activity</h4>
-                            <p>Have an idea for a new activity?</p>
-                            <p><a href="{{url_for('new_activity', city_id=city.id)}}">click here</a>!</p>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-
-        <div class="row text-center">
-            <div class="col-md-12">
-                <p>
-                    <a href="{{url_for('edit_city', city_id=city.id)}}"
-                       class="btn btn-default"
-                       role="button">
-                        Edit
-                    </a>
-                    <a href="{{url_for('delete_city', city_id=city.id)}}"
-                       class="btn btn-default"
-                       role="button">
-                        Delete
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
-{% endblock content %}
+{% block buttons %}
+                    <p>
+                        <a href="{{url_for('edit_city', city_id=city.id)}}"
+                           class="btn btn-default"
+                           role="button">
+                            Edit
+                        </a>
+                        <a href="{{url_for('delete_city', city_id=city.id)}}"
+                           class="btn btn-default"
+                           role="button">
+                            Delete
+                        </a>
+                    </p>
+{% endblock buttons %}

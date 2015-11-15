@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Roadtrip to {{city.name}}{% endblock title %}
+
+{% block header_attr %}class="city_header" style="background-image: url('{{city.image}}')"{% endblock header_attr %}
+{% block header %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{{city.name}}</h1>
+                    <hr class="small">
+                    <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                </div>
+            </div>
+        </div>
+{% endblock header %}
+
+{% block content %}
+    <section class="city_description">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                    <p>{{city.description}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="city_flash_messages">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                    <div class = 'flash'>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-info">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="city_activities">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center city_activities_header">
+                    Activities
+                </div>
+            </div>
+
+            {% if size is divisibleby(3) %}
+                <!-- then need to add one more row for add new, and two extra col -->
+                {% set cols = size + 3 %}
+            {% endif %}
+            {% if size % 3 == 1 %}
+                <!-- if mod 3 = 1, then need to add new, and extra col -->
+                {% set cols = size+2 %}
+            {% endif %}
+            {% if size % 3 == 2 %}
+                <!-- if mod 3 = 2, then meed to add new -->
+                {% set cols = size+1 %}
+            {% endif %}
+            {% for index in range(0, cols, 3) %}
+                <div class="row text-center">
+                    <!-- if there are more than 3 items left draw all column with data -->
+                    {% for col in range(0, 3)%}
+                        <div class="col-md-4 city_activity_item">
+                            {% if index+col < size %}
+                                <div class="city_activity_item_bgimage"
+                                     style="background-image:url('{{activities[index+col].image}}');
+                                            background-repeat: no-repeat;
+                                            background-position: center center;
+                                            -webkit-background-size: cover;
+                                            -moz-background-size: cover;
+                                            -o-background-size: cover;
+                                            background-size: cover;">
+                                </div>
+                                <div class="city_activity_item_text">
+                                    <h4>{{activities[index+col].name}}</h4>
+                                    <p id="city_activity_item_desc{{index+col}}">{{activities[index+col].description}}</p>
+                                    <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activities[index+col].id)}}" class="btn btn-default btn-sm">Learn More</a></p>
+                                </div>
+                            {% endif %}
+                            {% if index+col == size %}
+                                <img class="img-responsive" src="{{url_for('static', filename='addnew_g.png')}}">
+                                <h4>Add New Activity</h4>
+                                <p>Have an idea for a new activity?</p>
+                                <p><a href="{{url_for('new_activity', city_id=city.id)}}" class="btn btn-default btn-sm">click here</a></p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="city_options">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p>This city was added by: {{creator.name}}</p>
+                    {% block buttons %}
+                    {% endblock buttons %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            for (i=0; i<{{size}}; i++) {
+                var cur_id = '#city_activity_item_desc' + i
+                var new_str = $(cur_id).text().substr(0,200) + "...";
+                $(cur_id).text(new_str);
+            }
+        });
+    </script>
+{% endblock scripts %}

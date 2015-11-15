@@ -1,11 +1,34 @@
-html, body {
-    height: 100%;
-}
+/* ******************** */
+/* common classes       */
+/* ******************** */
+    html, body {
+        height: 100%;
+    }
 
-header {
+    header {
 
-}
+    }
 
+    .wrapper {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        margin: 0 auto -4em;
+    }
+
+    .push {
+        height: 4em;
+    }
+
+    .footer {
+        background-color: #333333;
+        color: lightblue;
+        height: 4em;
+    }
+
+/* ******************** */
+/* login                */
+/* ******************** */
 .initial {
     background-image: url("https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg");
     background-repeat: no-repeat;
@@ -30,60 +53,81 @@ header {
   color: white;
 }
 
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -4em;
-}
+/* ******************** */
+/* items on list_cities */
+/* ******************** */
+    .city_item {
+        margin: 35px;
+    }
 
-.city_item {
-    margin: 35px;
-}
 
-.activity_item {
-    padding-left: 40px;
-    padding-right: 40px;
-}
-
-.activity_description {
+/* ******************** */
+/* city/activity common */
+/* ******************** */
+.city_description, .activity_description {
     background-color: #ffffff;
     padding-bottom: 50px;
+    font-size: 18px;
 }
 
-.activity_basic_info {
-    background-color: #cccccc;
-    padding-top: 50px;
-    padding-bottom: 50px;
+.city_flash_messages {
+    background-color: #ccffff;
 }
 
-.activity_buttons {
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
+/* ******************** */
+/* items on show_cities */
+/* ******************** */
+    img.city_header {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
 
-img.city_header {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
+    .city_activities {
+        background-color: #dddddd;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
 
-img.city_activity {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
+    .city_activities_header {
+        padding-bottom: 50px;
+        font-size: 50px;
+    }
 
-.push {
-    height: 4em;
-}
+    .city_activity_item {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 
-.footer {
-    background-color: #333333;
-    color: lightblue;
-    height: 4em;
-}
+    .city_activity_item_bgimage {
+        height: 200px;
+    }
+
+    .city_activity_item img {
+        height: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .city_options {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+
+/* ******************** */
+/* items on show_activity */
+/* ******************** */
+    .activity_basic_info {
+        background-color: #cccccc;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .activity_buttons {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }

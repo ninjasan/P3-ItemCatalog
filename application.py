@@ -107,8 +107,13 @@ def delete_city(city_id):
 def show_city(city_id):
     city = session.query(City).filter(City.id == city_id).one()
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
+    creator = session.query(User).filter(User.id == City.user_id).one()
     size = len(activities)
-    return render_template('show_city.html', city=city, activities=activities, size=size)
+
+    if 'user_id' not in login_session or creator.id != login_session['user_id']:
+        return render_template('show_city_public.html', city=city, activities=activities, size=size, creator=creator)
+    else:
+        return render_template('show_city.html', city=city, activities=activities, size=size, creator=creator)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
