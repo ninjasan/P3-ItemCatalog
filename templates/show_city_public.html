@@ -89,9 +89,11 @@
                             {% endif %}
                             {% if index+col == size %}
                                 <img class="img-responsive" src="{{url_for('static', filename='addnew_g.png')}}">
-                                <h4>Add New Activity</h4>
-                                <p>Have an idea for a new activity?</p>
-                                <p><a href="{{url_for('new_activity', city_id=city.id)}}" class="btn btn-default btn-sm">click here</a></p>
+                                <div class="city_activity_item_text">
+                                    <h4>Add New Activity</h4>
+                                    <p>Have an idea for a new activity?</p>
+                                    <p><a href="{{url_for('new_activity', city_id=city.id)}}" class="btn btn-default btn-sm">click here</a></p>
+                                </div>
                             {% endif %}
                         </div>
                     {% endfor %}
