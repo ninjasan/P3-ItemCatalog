@@ -64,7 +64,7 @@ def new_city():
                            user_id=login_session['user_id'])
         session.add(city_to_add)
         session.commit()
-
+        flash("{0} has been successfully added.".format(city_to_add.name))
         return redirect(url_for('list_cities'))
     else:
         return render_template('new_city.html')

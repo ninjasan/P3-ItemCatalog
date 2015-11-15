@@ -60,6 +60,16 @@
         margin: 35px;
     }
 
+    .city_item_bgimage {
+        height: 200px;
+    }
+
+    .city_item img {
+        height: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
 /* ******************** */
 /* city/activity common */
@@ -99,6 +109,7 @@
     .city_activity_item {
         padding-left: 40px;
         padding-right: 40px;
+        margin-bottom: 50px;
     }
 
     .city_activity_item_bgimage {
@@ -110,10 +121,6 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .city_activity_item_text {
-        margin-bottom: 50px;
     }
 
     .city_options {

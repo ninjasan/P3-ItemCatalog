@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip{% endblock title %}
 
-    {% block header_attr %}class="container"{% endblock header_attr %}
-        {% block header %}
+{% block header_attr %}
+    class="city_header" style="
+        background-image: url('https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg');
+        background-position: bottom center;
+        "
+{% endblock header_attr %}
+    {% block header %}
+        <div class="container">
             <div class="row">
-                <div class="col-xs-9">
+                <div class="col-xs-12">
                     <h1>Cities</h1>
-                </div>
-                <div class="col-xs-2 text-right">
-                    <a href="{{url_for('new_city')}}" class="btn btn-info" role="button">Add new</a>
-                </div>
-                <div class="col-xs-1">
-                    <a href="#" class="btn btn-info" role="button">Sort</a>
+                    <hr class="small">
+                    <span class="subheading">Where would you like to go?</span>
                 </div>
             </div>
+        </div>
     {% endblock header %}
 
     {% block content %}
@@ -39,29 +42,52 @@
             {% for city in cities %}
                 <div class="row city_item">
                     <div class="col-md-4">
-                        <img class="img-responsive" src="{{city.image}}">
+                        <!-- <img class="img-responsive" src="{{city.image}}"> -->
+                        <div class="city_item_bgimage"
+                             style="background-image:url('{{city.image}}');
+                                    background-repeat: no-repeat;
+                                    background-position: center center;
+                                    -webkit-background-size: cover;
+                                    -moz-background-size: cover;
+                                    -o-background-size: cover;
+                                    background-size: cover;">
+                        </div>
                     </div>
                     <div class="col-md-8">
                         <h3>
                             {{city.name}}, {{city.state_provence}}, {{city.country}}
-                            <a href="{{url_for('show_city', city_id=city.id)}}" class="btn btn-default">Learn more</a>
+                            <a href="{{url_for('show_city', city_id=city.id)}}" class="btn btn-default btn-sm">Learn more</a>
                         </h3>
-                        <p>{{city.description}}</p>
+                        <p id="city_item_desc{{loop.index0}}">{{city.description}}</p>
                     </div>
                 </div>
             {% endfor %}
             <!-- Add one more row, for a new city -->
             <div class="row city_item">
-                    <div class="col-md-4">
-                        <img class="img-responsive" src="http://placehold.it/350x150">
-                    </div>
-                    <div class="col-md-8">
-                        <h3>
-                            Have an idea for a new location?
-                            <a href="{{url_for('new_city')}}" class="btn btn-info" role="button">Add new</a>
-                        </h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at ipsum non diam cursus vestibulum. In laoreet justo in felis eleifend, eu pellentesque tellus elementum. Suspendisse potenti. Ut porta, sapien lacinia ornare vestibulum, enim odio ultricies ante, eget pretium turpis eros non dui. Mauris aliquet mi arcu, nec rutrum ex venenatis ut. Vestibulum vel malesuada nibh, eu ullamcorper urna. Vivamus vitae scelerisque turpis, nec efficitur purus. Ut lobortis molestie sapien, eu viverra nibh. Suspendisse lorem neque, faucibus vel maximus eu, rutrum a arcu. Cras luctus urna nec hendrerit volutpat. Nulla eu varius sem. Aliquam ut facilisis quam, in pretium augue.</p>
-                    </div>
+                <div class="col-md-4">
+                    <img class="img-responsive" src="{{url_for('static', filename='addnew_g.png')}}">
                 </div>
+                <div class="col-md-8">
+                    <h3>
+                        Have an idea for a new location?
+                        <a href="{{url_for('new_city')}}" class="btn btn-info btn-sm" role="button">Add new</a>
+                    </h3>
+                    <p>Is there somewhere else you'd like to go? Add it here and allow others to take joy from your roadtrip savvy!</p>
+                </div>
+            </div>
         </div>
     {% endblock content %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            for (i=0; i<{{cities|length}}; i++) {
+                var cur_id = '#city_item_desc' + i
+                if($(cur_id).text().length > 500) {
+                    var new_str = $(cur_id).text().substr(0,500) + "...";
+                    $(cur_id).text(new_str);
+                }
+            }
+        });
+    </script>
+{% endblock scripts %}
