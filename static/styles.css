@@ -22,24 +22,53 @@
 
     .footer {
         background-color: #333333;
-        color: lightblue;
+        color: #999999;
         height: 50px;
         padding-top: 15px;
+    }
+
+    .footer a {
+        color: #9d9d9d;
+    }
+
+    .footer a:hover {
+        color: #ffffff;
+        text-decoration: none;
     }
 
 /* ******************** */
 /* login                */
 /* ******************** */
-.initial {
-    background-image: url("https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
+    .login_body {
+        background-image: url("https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .login_header img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .login_content {
+        margin-top: 50px;
+    }
+
+    .login_content a {
+        font-size: 24px;
+        color: #666666;
+    }
+
+    .login_content a:hover {
+        color: #2E8B57;
+        text-decoration: none;
+    }
 
 /* ******************** */
 /* items on list_cities */
@@ -58,7 +87,7 @@
         background-size: cover;
     }
 
-    .city_item img {
+    .city_item img, .city_activity_item img {
         height: 200px;
         display: block;
         margin-left: auto;
@@ -113,13 +142,6 @@
         padding-left: 40px;
         padding-right: 40px;
         margin-bottom: 50px;
-    }
-
-    .city_activity_item img {
-        height: 200px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
     }
 
 /* ******************** */
