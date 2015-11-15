@@ -150,3 +150,16 @@
     .activity_basic_info_text {
         font-size: 16px;
     }
+
+/* ******************** */
+/* items on about       */
+/* ******************** */
+    .about_general {
+        margin-bottom: 25px;
+    }
+
+    .about_resources {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        background-color: #dddddd;
+    }

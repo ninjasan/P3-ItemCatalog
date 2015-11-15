@@ -1,19 +1,93 @@
 {% extends "base.html" %}
 {% block title %}About{% endblock title %}
 
-{% block header %}
-    About
-{% endblock header %}
-{% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <p>Made by Pooja Mathur</p>
-            <p>For Project 3 of Udacity.com's Fullstack Web Developer Nanodegree</p>
-            <p>Thanks to the following for additional resources:</p>
-            <ul>
-                <li>Images</li>
-                <li>Code help</li>
-            </ul>
+    {% block header_attr %}
+        class="city_header" style="
+            background-image: url('https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg');
+            background-position: bottom center;
+            "
+    {% endblock header_attr %}
+
+    {% block header %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>About Roadtrip</h1>
+                    <hr class="small">
+                    <span class="subheading">A project for the Udacity Fullstack Web Developer Nanodegree</span>
+                </div>
+            </div>
         </div>
-    </div>
-{% endblock content %}
+    {% endblock header %}
+
+    {% block content %}
+        <section class="about_general">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                        <p>Made by Pooja Mathur</p>
+                        <p>For Project 3 of Udacity.com's Fullstack Web Developer Nanodegree</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="about_resources">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                        <p>This project was made possible by the following resources:</p>
+                        <ul>
+                            <li>Code</li>
+                                <ul>
+                                    <li>Sticky footer <a href="http://ryanfait.com/resources/footer-stick-to-bottom-of-page/">tutorial</a> by Ryan Fait</li>
+                                    <li>Udacity's <a href="https://www.udacity.com/course/authentication-authorization-oauth--ud330-nd">Authentication & Authorization: OAuth</a> course</li>
+                                </ul>
+                            <li>Content</li>
+                                <ul>
+                                    <li>Seattle</li>
+                                        <ul>
+                                            <li>Description from <a href="http://www.visitseattle.org/">Visit Seattle</a> website</li>
+                                            <li>Image from http://wazerilimo.com/</li>
+                                            <li>Chihuly Garden and Glass description & image from <a href="http://www.chihulygardenandglass.com/">Chihuly Garden & Glass</a> website</li>
+                                            <li>Pike Place description from <a href="http://www.pikeplacemarket.org/">Pike Place</a> website</li>
+                                            <li>Pike Place image from <a href="https://commons.wikimedia.org/">Wikipedia Commons</a></li>
+                                            <li>Space Needle Description and Image from <a href="http://www.spaceneedle.com/hours-directions/">Space Needle</a> website</li>
+                                            <li>Discovery Park description from <a href="http://www.seattle.gov/parks/environment/discovery.htm">Seattle City Parks</a> website</li>
+                                            <li>Discovery Park image from Pooja Mathur.</li>
+                                        </ul>
+                                    <li>Vancouver</li>
+                                        <ul>
+                                            <li>Description and image from <a href="http://www.hellobc.com/vancouver.aspx">Hello BC</a> website</li>
+                                            <li>Grouse Mountain description from <a href="http://www.hellobc.com/activitylisting/4543334/grouse-mountain-resort.aspx">Hello BC</a> website</li>
+                                            <li>Grouse Mountain image from <a href="https://www.grousemountain.com/">Grouse Mountain Resort</a> website</li>
+                                            <li>Nitobe Memorial Garden description from <a href="http://www.hellobc.com/activitylisting/4580326/nitobe-memorial-garden.aspx">Hello BC</a> website</li>
+                                            <li>Nitobe Memorial Garden image from <a href="http://www.nitobe.org/">Nitobe Memorial Garden</a> website</li>
+                                            <li>H.R. MacMillan Space Centre description from <a href="http://www.hellobc.com/activitylisting/100005/h-r-macmillan-space-centre.aspx">Hello BC</a> website</li>
+                                            <li>H.R. MacMillan Space Centre image from <a href="http://www.waymarking.com/gallery/image.aspx?f=1&guid=af19f431-a45b-44c7-8db3-6c64445642eb">Waymarking</a> website</li>
+                                            <li>Stanley Park description from <a href="http://www.tourismvancouver.com/do/activities-attractions/hiking/stanley_park_hiking/">Tourism Vancouver</a> website</li>
+                                            <li>Stanley Park image from <a href="http://vancouver.ca/parks-recreation-culture/stanley-park.aspx">Vancouver Parks</a> website</li>
+                                            <li>Granville Island description from <a href="http://www.hellobc.com/activitylisting/4547354/granville-island.aspx">Hello BC</a> website</li>
+                                            <li>Granville Island image from <a href="http://granvilleisland.com/">Granville Island</a> website</li>
+                                            <li>Museum of Anthropology description from <a href="http://www.hellobc.com/activitylisting/4542191/museum-of-anthropology.aspx">Hello BC</a> website</li>
+                                            <li>Museum of Anthropology image from <a href="http://moa.ubc.ca/">Museum of Anthropology</a> website</li>
+                                        </ul>
+                                    <li>Portland</li>
+                                        <ul>
+                                            <li>Description from <a href="https://en.wikipedia.org/wiki/Portland,_Oregon">Wikipedia</a></li>
+                                            <li>Image from <a href="http://www.usapics.net/portland-city-oregon.html">usapics.net</a></li>
+                                            <li>Portland Japanese Garden description from <a href="http://www.travelportland.com/article/portland-japanese-garden/">Travel Portland</a> website</li>
+                                            <li>Portland Japanese Garden image from <a href="http://japanesegarden.com/">Portland Japanese Garden</a> website</li>
+                                            <li>Powell's City of Books description from <a href="http://www.powells.com/info/about-us">Powell's</a> website</li>
+                                            <li>Powell's City of Books image from <a href="http://thomaspatricklevy.com/2013/03/18/powells-to-celebrate-small-press-month-were/">Thomas Patrick Levy</a></li>
+                                        </ul>
+                                    <li>Other</li>
+                                        <ul>
+                                            <li>Login background, cities & about page header image from Pooja Mathur</li>
+                                        </ul>
+                                </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock content %}
