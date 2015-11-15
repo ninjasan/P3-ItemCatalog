@@ -84,7 +84,10 @@ def edit_city(city_id):
         flash("{0} has been successfully editted".format(city.name))
         return redirect(url_for('show_city', city_id=city.id))
     else:
-        return render_template('edit_city.html', city=city)
+        if 'user_id' not in login_session or city.user_id != login_session['user_id']:
+            return redirect(url_for('show_city', city_id=city.id))
+        else:
+            return render_template('edit_city.html', city=city)
 
 
 @app.route('/cities/<int:city_id>/delete/', methods=['GET', 'POST'])
@@ -99,7 +102,10 @@ def delete_city(city_id):
         flash("The location has been successfully delete.")
         return redirect(url_for('list_cities'))
     else:
-        return render_template('delete_city.html', city=city)
+        if 'user_id' not in login_session or city.user_id != login_session['user_id']:
+            return redirect(url_for('show_city', city_id=city.id))
+        else:
+            return render_template('delete_city.html', city=city)
 
 
 @app.route('/cities/<int:city_id>/activities/')
@@ -163,7 +169,10 @@ def edit_activity(city_id, activity_id):
         flash("This item has been successfully editted!")
         return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
     else:
-        return render_template('edit_activity.html', city=city, activity=activity)
+        if 'user_id' not in login_session or creator.id != login_session['user_id']:
+            return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
+        else:
+            return render_template('edit_activity.html', city=city, activity=activity)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/delete/', methods=['GET', 'POST'])
@@ -176,7 +185,10 @@ def delete_activity(city_id, activity_id):
         flash("The activity has been successfully deleted from {0}".format(city.name))
         return redirect(url_for('show_city', city_id=city_id))
     else:
-        return render_template('delete_activity.html', city=city, activity=activity)
+        if 'user_id' not in login_session or creator.id != login_session['user_id']:
+            return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
+        else:
+            return render_template('delete_activity.html', city=city, activity=activity)
 
 
 @app.route('/gconnect', methods=['POST'])
