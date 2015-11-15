@@ -1,7 +1,6 @@
 {% extends "show_city_public.html" %}
 
 {% block buttons %}
-                    <p>
                         <a href="{{url_for('edit_city', city_id=city.id)}}"
                            class="btn btn-default"
                            role="button">
@@ -12,5 +11,4 @@
                            role="button">
                             Delete
                         </a>
-                    </p>
 {% endblock buttons %}

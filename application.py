@@ -111,9 +111,9 @@ def show_city(city_id):
     size = len(activities)
 
     if 'user_id' not in login_session or creator.id != login_session['user_id']:
-        return render_template('show_city_public.html', city=city, activities=activities, size=size, creator=creator)
+        return render_template('show_city_public.html', city=city, activities=activities, creator=creator)
     else:
-        return render_template('show_city.html', city=city, activities=activities, size=size, creator=creator)
+        return render_template('show_city.html', city=city, activities=activities, creator=creator)
 
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
