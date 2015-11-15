@@ -169,7 +169,7 @@ def edit_activity(city_id, activity_id):
         flash("This item has been successfully editted!")
         return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
     else:
-        if 'user_id' not in login_session or creator.id != login_session['user_id']:
+        if 'user_id' not in login_session or activity.user_id != login_session['user_id']:
             return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
         else:
             return render_template('edit_activity.html', city=city, activity=activity)
@@ -185,7 +185,7 @@ def delete_activity(city_id, activity_id):
         flash("The activity has been successfully deleted from {0}".format(city.name))
         return redirect(url_for('show_city', city_id=city_id))
     else:
-        if 'user_id' not in login_session or creator.id != login_session['user_id']:
+        if 'user_id' not in login_session or activity.user_id != login_session['user_id']:
             return redirect(url_for('show_activity', city_id=city_id, activity_id=activity_id))
         else:
             return render_template('delete_activity.html', city=city, activity=activity)
