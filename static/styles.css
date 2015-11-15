@@ -118,12 +118,12 @@
 
     }
 
-    .city_activities_header, .activity_basic_info_header {
+    .city_activities_header, .activity_basic_info_header, .about_resources_header {
         padding-bottom: 50px;
         font-size: 30px;
     }
 
-    .city_activities, .activity_basic_info {
+    .city_activities, .activity_basic_info, .about_resources {
         background-color: #dddddd;
         padding-top: 50px;
         padding-bottom: 50px;
@@ -156,10 +156,4 @@
 /* ******************** */
     .about_general {
         margin-bottom: 25px;
-    }
-
-    .about_resources {
-        padding-top: 25px;
-        padding-bottom: 25px;
-        background-color: #dddddd;
     }
