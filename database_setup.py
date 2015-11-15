@@ -25,6 +25,19 @@ class City(Base):
     image = Column(String(150))
     user = relationship(User)
 
+    @property
+    def serialize(self):
+        #Returns object in easily seriabilizable format
+        return {
+            "name": self.name,
+            "id": self.id,
+            "user_id": self.user_id,
+            "state_provence": self.state_provence,
+            "country": self.country,
+            "description": self.description,
+            "image": self.image
+        }
+
 
 class Activity(Base):
     __tablename__ = 'activity'
@@ -39,6 +52,22 @@ class Activity(Base):
     image = Column(String(150))
     city = relationship(City)
     user = relationship(User)
+
+    @property
+    def serialize(self):
+        #Returns object in easily seriabilizable format
+        return {
+            "name": self.name,
+            "id": self.id,
+            "city_id": self.city_id,
+            "user_id": self.user_id,
+            "category": self.category,
+            "description": self.description,
+            "website": self.website,
+            "address": self.address,
+            "image": self.image
+        }
+
 
 engine = create_engine('sqlite:///vacation_catalog_wUsers.db')
 Base.metadata.create_all(engine)

@@ -1,5 +1,5 @@
 __author__ = 'poojm'
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import Flask, render_template, url_for, request, redirect, flash, jsonify
 from flask import session as login_session
 
 from sqlalchemy import create_engine
@@ -25,6 +25,35 @@ session = DBSession()
 
 debugging = True
 
+
+@app.route('/cities/JSON')
+def cities_JSON():
+    cities = session.query(City).all()
+    return jsonify(cities=[city.serialize for city in cities])
+
+
+@app.route('/cities/<int:city_id>/JSON')
+def city_JSON(city_id):
+    city = session.query(City).filter(City.id == city_id).one()
+    return jsonify(city=city.serialize)
+
+
+@app.route('/cities/<int:city_id>/activities/JSON')
+def city_activities_JSON(city_id):
+    city = session.query(City).filter(City.id == city_id).one()
+    activities = session.query(Activity).filter(Activity.city_id == city_id).all()
+    return jsonify(activities=[i.serialize for i in activities])
+
+
+@app.route('/cities/<int:city_id>/activities/<int:activity_id>/JSON')
+def activity_JSON(city_id, activity_id):
+    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    return jsonify(activity=activity.serialize)
+
+
+@app.route('/')
+@app.route('/home/')
+@app.route('/index/')
 @app.route('/login/')
 def login():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
@@ -37,14 +66,14 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/')
-@app.route('/home/')
-@app.route('/index/')
 @app.route('/cities/')
 def list_cities():
     cities = session.query(City).all()
     # adding print for debugging purposes
     if debugging:
+        users = session.query(User).all()
+        for user in users:
+            print user.name
         for city in cities:
             print city.name
             activities = session.query(Activity).filter(Activity.city_id == city.id).all()
