@@ -40,19 +40,6 @@
     background-size: cover;
 }
 
-.city_header, .activity_header {
-  background-color: #808080;
-  background: no-repeat center center;
-  background-attachment: scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-  margin-bottom: 50px;
-  padding: 100px 0 50px;
-  color: white;
-}
-
 /* ******************** */
 /* items on list_cities */
 /* ******************** */
@@ -74,38 +61,47 @@
 /* ******************** */
 /* city/activity common */
 /* ******************** */
-.city_description, .activity_description {
-    background-color: #ffffff;
-    padding-bottom: 50px;
-    font-size: 18px;
-}
-
-.city_flash_messages {
-
-}
-
-/* ******************** */
-/* items on show_cities */
-/* ******************** */
-    img.city_header {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 25px;
-        margin-bottom: 25px;
+    .city_header, .activity_header {
+        background-repeat: no-repeat;
+        background-position: center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        margin-bottom: 50px;
+        padding: 100px 0 50px;
+        color: white;
     }
 
-    .city_activities {
+    .city_description, .activity_description {
+        padding-bottom: 50px;
+        font-size: 18px;
+    }
+
+    .city_flash_messages, .activity_flash_messages {
+
+    }
+
+    .city_activities_header, .activity_basic_info_header {
+        padding-bottom: 50px;
+        font-size: 30px;
+    }
+
+    .city_activities, .activity_basic_info {
         background-color: #dddddd;
         padding-top: 50px;
         padding-bottom: 50px;
     }
 
-    .city_activities_header {
+    .city_options, .activity_options {
+        padding-top: 50px;
         padding-bottom: 50px;
-        font-size: 50px;
     }
 
+
+/* ******************** */
+/* items on show_cities */
+/* ******************** */
     .city_activity_item {
         padding-left: 40px;
         padding-right: 40px;
@@ -123,22 +119,9 @@
         margin-right: auto;
     }
 
-    .city_options {
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-
-
 /* ******************** */
 /* items on show_activity */
 /* ******************** */
-    .activity_basic_info {
-        background-color: #cccccc;
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-
-    .activity_buttons {
-        padding-top: 50px;
-        padding-bottom: 50px;
+    .activity_basic_info_text {
+        font-size: 16px;
     }

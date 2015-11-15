@@ -108,7 +108,6 @@ def show_city(city_id):
     city = session.query(City).filter(City.id == city_id).one()
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     creator = session.query(User).filter(User.id == City.user_id).one()
-    size = len(activities)
 
     if 'user_id' not in login_session or creator.id != login_session['user_id']:
         return render_template('show_city_public.html', city=city, activities=activities, creator=creator)
@@ -120,7 +119,11 @@ def show_city(city_id):
 def show_activity(city_id, activity_id):
     city = session.query(City).filter(City.id == city_id).one()
     activity = session.query(Activity).filter(Activity.id == activity_id).one()
-    return render_template('show_activity.html', city=city, activity=activity)
+    creator = session.query(User).filter(User.id == activity.user_id).one()
+    if 'user_id' not in login_session or creator.id != login_session['user_id']:
+        return render_template('show_activity_public.html', city=city, activity=activity, creator=creator)
+    else:
+        return render_template('show_activity.html', city=city, activity=activity, creator=creator)
 
 
 @app.route('/cities/<int:city_id>/activities/new/', methods=['GET', 'POST'])

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Roadtrip to {{activity.name}}{% endblock title %}
+
+{% block header_attr %}class="activity_header" style="background-image: url('{{activity.image}}')"{% endblock header_attr %}
+{% block header %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{{activity.name}}</h1>
+                    <hr class="small">
+                    <span class="subheading">On a roadtrip to {{city.name}}</span>
+                </div>
+            </div>
+        </div>
+{% endblock header %}
+
+{% block content %}
+    <section class="activity_flash_messages">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                <div class = 'flash'>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-info">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activity_description">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                    <p>{{activity.description}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activity_basic_info">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center activity_basic_info_header">
+                    Basic Info
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-3 col-sm-9 activity_basic_info_text">
+                    <p><strong>Category:</strong> {{activity.category}}</p>
+                    <p><strong>Address:</strong> {{activity.address}}</p>
+                    <p><strong>Website:</strong> <a href="{{activity.website}}">{{activity.website}}</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activity_options">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p>This activity was added by: {{creator.name}}</p>
+                    <p>
+                        {% block buttons %}
+                        {% endblock buttons %}
+                        <a href="{{url_for('show_city', city_id=city.id)}}"
+                           class="btn btn-default"
+                           role="button">
+                            Back
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
