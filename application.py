@@ -17,6 +17,7 @@ CLIENT_ID = json.loads(open('client_secret.json', 'r').read())['web']['client_id
 APPLICATION_NAME = "Roadtrip Catalog App"
 
 app = Flask(__name__)
+app.jinja_env.globals['nonce'] = generate_nonce()
 
 engine = create_engine('sqlite:///vacation_catalog_wUsers.db')
 Base.metadata.bind = engine
@@ -572,6 +573,12 @@ def getUserId(email):
         return None
 
 
+def generate_nonce():
+    if '_nonce' not in login_session:
+        login_session['_nonce'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    return login_session['_nonce']
+    
+    
 if __name__ == '__main__':
     app.secret_key = "super_secret_key"
     app.debug = True
