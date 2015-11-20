@@ -66,7 +66,7 @@ def activity_JSON(city_id, activity_id):
       city_id: the unique identifier for the city.
       activity_id: the unique identifier for the activity in that city
     """
-    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    activity = session.query(Activity).filter(Activity.id == activity_id, Activity.city_id == city_id).one()
     return jsonify(activity=activity.serialize)
 
 
@@ -212,7 +212,7 @@ def show_activity(city_id, activity_id):
       activity_id: the unique identifier for the activity in that city
     """
     city = session.query(City).filter(City.id == city_id).one()
-    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    activity = session.query(Activity).filter(Activity.id == activity_id, Activity.city_id == city_id).one()
     creator = session.query(User).filter(User.id == activity.user_id).one()
     if 'user_id' not in login_session or creator.id != login_session['user_id']:
         return render_template('show_activity_public.html', city=city, activity=activity, creator=creator)
@@ -264,7 +264,7 @@ def edit_activity(city_id, activity_id):
       activity_id: the unique identifier for the activity in that city
     """
     city = session.query(City).filter(City.id == city_id).one()
-    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    activity = session.query(Activity).filter(Activity.id == activity_id, Activity.city_id == city_id).one()
     if request.method == 'POST':
         session.query(Activity).filter(Activity.id == activity_id).update({Activity.name: request.form['name'],
                                                                            Activity.address: request.form['address'],
@@ -295,7 +295,7 @@ def delete_activity(city_id, activity_id):
       activity_id: the unique identifier for the activity in that city
     """
     city = session.query(City).filter(City.id == city_id).one()
-    activity = session.query(Activity).filter(Activity.id == activity_id).one()
+    activity = session.query(Activity).filter(Activity.id == activity_id, Activity.city_id == city_id).one()
     if request.method == 'POST':
         session.delete(activity)
         session.commit()
