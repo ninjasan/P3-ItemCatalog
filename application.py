@@ -28,18 +28,31 @@ debugging = True
 
 @app.route('/cities/JSON')
 def cities_JSON():
+    """Returns list of cities in JSON format."""
     cities = session.query(City).all()
     return jsonify(cities=[city.serialize for city in cities])
 
 
 @app.route('/cities/<int:city_id>/JSON')
 def city_JSON(city_id):
+    """
+    Returns a city in JSON format.
+
+    Args:
+      city_id: the unique identifier for the city
+    """
     city = session.query(City).filter(City.id == city_id).one()
     return jsonify(city=city.serialize)
 
 
 @app.route('/cities/<int:city_id>/activities/JSON')
 def city_activities_JSON(city_id):
+    """
+    Returns list of activities for a city in JSON format.
+
+    Args:
+      city_id: the unique identifier for the city.
+    """
     city = session.query(City).filter(City.id == city_id).one()
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     return jsonify(activities=[i.serialize for i in activities])
@@ -47,6 +60,12 @@ def city_activities_JSON(city_id):
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/JSON')
 def activity_JSON(city_id, activity_id):
+    """Returns an activity within a city in JSON format.
+
+    Args:
+      city_id: the unique identifier for the city.
+      activity_id: the unique identifier for the activity in that city
+    """
     activity = session.query(Activity).filter(Activity.id == activity_id).one()
     return jsonify(activity=activity.serialize)
 
@@ -56,6 +75,7 @@ def activity_JSON(city_id, activity_id):
 @app.route('/index/')
 @app.route('/login/')
 def login():
+    """Gives this session a unique key and renders the login page."""
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
     return render_template('login.html', state=state)
@@ -63,11 +83,13 @@ def login():
 
 @app.route('/about/')
 def about():
+     """Renders the about page."""
     return render_template('about.html')
 
 
 @app.route('/cities/')
 def list_cities():
+    """Renders the main cities page, with all the cities"""
     cities = session.query(City).all()
     # adding print for debugging purposes
     if debugging:
@@ -84,6 +106,12 @@ def list_cities():
 
 @app.route('/cities/new/', methods=['GET', 'POST'])
 def new_city():
+    """
+    Provides functionality for adding a new city
+
+        On GET: render the create city page
+        On POST: create a new city and adds it to the DB
+    """
     if request.method == 'POST':
         city_to_add = City(name=request.form['name'],
                            state_provence=request.form['state'],
@@ -101,6 +129,15 @@ def new_city():
 
 @app.route('/cities/<int:city_id>/edit/', methods=['GET', 'POST'])
 def edit_city(city_id):
+    """
+    Provides functionality for editing a city
+
+        On GET: render the edit city page
+        On POST: updates the city in the DB
+
+    Args:
+      city_id: the unique identifier for the city.
+    """
     city = session.query(City).filter(City.id == city_id).one()
     if request.method == 'POST':
         session.query(City).filter(City.id == city_id).update({City.name: request.form['name'],
@@ -121,6 +158,15 @@ def edit_city(city_id):
 
 @app.route('/cities/<int:city_id>/delete/', methods=['GET', 'POST'])
 def delete_city(city_id):
+    """
+    Provides functionality for deleting a city and associated activities
+
+        On GET: render the delete city page
+        On POST: deletes the city and related activities from the DB
+
+    Args:
+      city_id: the unique identifier for the city.
+    """
     city = session.query(City).filter(City.id == city_id).one()
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     if request.method == 'POST':
@@ -140,6 +186,12 @@ def delete_city(city_id):
 @app.route('/cities/<int:city_id>/activities/')
 @app.route('/cities/<int:city_id>/')
 def show_city(city_id):
+    """
+    Provides functionality for displaying a city and associated activities
+
+    Args:
+      city_id: the unique identifier for the city.
+    """
     city = session.query(City).filter(City.id == city_id).one()
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     creator = session.query(User).filter(User.id == City.user_id).one()
@@ -152,6 +204,13 @@ def show_city(city_id):
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/')
 def show_activity(city_id, activity_id):
+    """
+    Provides functionality for displaying an activity for a city
+
+    Args:
+      city_id: the unique identifier for the city.
+      activity_id: the unique identifier for the activity in that city
+    """
     city = session.query(City).filter(City.id == city_id).one()
     activity = session.query(Activity).filter(Activity.id == activity_id).one()
     creator = session.query(User).filter(User.id == activity.user_id).one()
@@ -163,6 +222,15 @@ def show_activity(city_id, activity_id):
 
 @app.route('/cities/<int:city_id>/activities/new/', methods=['GET', 'POST'])
 def new_activity(city_id):
+    """
+    Provides functionality for adding a new activity for a city
+
+        On GET: renders the form to add a new activity
+        On POST: takes the input from the form and adds a new activity to the DB
+
+    Args:
+      city_id: the unique identifier for the city.
+    """
     city = session.query(City).filter(City.id == city_id).one()
     if request.method == 'POST':
         print "in activity post"
@@ -185,6 +253,16 @@ def new_activity(city_id):
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/edit/', methods=['GET', 'POST'])
 def edit_activity(city_id, activity_id):
+    """
+    Provides functionality for editing an activity for a city
+
+        On GET: renders the form to edit an activity
+        On POST: takes the input from the form and updates the activity in the DB
+
+    Args:
+      city_id: the unique identifier for the city.
+      activity_id: the unique identifier for the activity in that city
+    """
     city = session.query(City).filter(City.id == city_id).one()
     activity = session.query(Activity).filter(Activity.id == activity_id).one()
     if request.method == 'POST':
@@ -206,6 +284,16 @@ def edit_activity(city_id, activity_id):
 
 @app.route('/cities/<int:city_id>/activities/<int:activity_id>/delete/', methods=['GET', 'POST'])
 def delete_activity(city_id, activity_id):
+    """
+    Provides functionality to delete an activity in a city
+
+        On GET: renders the form to delete an activity
+        On POST: takes the input from the form and deletes the activity from the DB
+
+    Args:
+      city_id: the unique identifier for the city.
+      activity_id: the unique identifier for the activity in that city
+    """
     city = session.query(City).filter(City.id == city_id).one()
     activity = session.query(Activity).filter(Activity.id == activity_id).one()
     if request.method == 'POST':
@@ -222,6 +310,7 @@ def delete_activity(city_id, activity_id):
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """Provides functionality to login the user via their Google account"""
     print "here!"
     # Validate state token
     if request.args.get('state') != login_session['state']:
@@ -322,6 +411,7 @@ def gconnect():
 
 @app.route('/gdisconnect')
 def gdisconnect():
+    """Provides functionality to logout of the user's Google account"""
     # only disconnect a connected user
     credentials = login_session.get('credentials')
     if credentials is None:
@@ -341,6 +431,7 @@ def gdisconnect():
 
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
+    """Provides functionality to login the user via their Facebook account"""
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -404,6 +495,7 @@ def fbconnect():
 
 @app.route('/fbdisconnect')
 def fbdisconnect():
+    """Provides functionality to logout of the user's Facebook account"""
     facebook_id = login_session['facebook_id']
     access_token = login_session['access_token']
     url = "https://graph.facebook.com/{0}/permissions?access_token={1}".format(facebook_id, access_token)
@@ -414,6 +506,7 @@ def fbdisconnect():
 
 @app.route('/disconnect/')
 def disconnect():
+    """Provides general logout clean-up for the session"""
     if 'provider' in login_session:
         if login_session['provider'] == 'google':
             gdisconnect()
@@ -434,6 +527,12 @@ def disconnect():
 
 # helper functions
 def createUser(login_session):
+    """
+    Provides functionality to create a new user in the database
+
+    Args:
+      login_session: the dictionary storing login details
+    """
     newUser = User(name=login_session['username'],
                    email=login_session['email'],
                    picture_url=login_session['picture'])
@@ -443,10 +542,29 @@ def createUser(login_session):
     return user.id
 
 def getUserInfo(user_id):
+    """
+    Provides functionality retrieve the user's details from the database
+
+    Args:
+      user_id: the unique identifier for the user
+
+    Returns:
+      user: an object containing the user's information
+    """
     user = session.query(User).filter(User.id == user_id).one()
     return user
 
 def getUserId(email):
+    """
+    Provides functionality to see if a user has already been registered
+
+    Args:
+      email: the email address of the user, from their Facebook or Google account
+
+    Returns:
+      user.id: the unique identifier for the user, if the user has registered
+      none: if the user has not registered yet
+    """
     try:
         user = session.query(User).filter(User.email == email).one()
         return user.id
