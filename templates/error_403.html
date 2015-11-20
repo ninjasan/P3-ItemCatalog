@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}403 Forbidden{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h1>403 Forbidden</h1>
+                You are not authorized to perform this action.
+                Return to the <a href="{{url_for('list_cities')}}">Cities</a> page.
+            </div>
+        </div>
+    </div>
+{% endblock content %}

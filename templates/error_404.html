@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}404 Not Found{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h1>404 Not Found</h1>
+                The resource you're looking for does not exist.
+                Return to the <a href="{{url_for('list_cities')}}">Cities</a> page.
+            </div>
+        </div>
+    </div>
+{% endblock content %}

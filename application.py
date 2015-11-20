@@ -74,6 +74,16 @@ def activity_JSON(city_id, activity_id):
     return jsonify(activity=activity.serialize)
 
 
+@app.errorhandler(403)
+def action_unauthorized(error):
+    return render_template('error_403.html'), 403
+
+
+@app.errorhandler(404)
+def entity_not_found(error):
+    return render_template('error_404.html'), 404
+
+
 @app.route('/')
 @app.route('/home/')
 @app.route('/index/')
@@ -169,7 +179,7 @@ def delete_city(city_id):
     if request.method == 'POST':
         if 'nonce' not in login_session or \
            login_session['nonce'] != request.form['nonce']:
-            flash("You are not authorized to perform this action")
+            abort(403)
         else:
             session.delete(city)
             for activity in activities:
@@ -334,7 +344,7 @@ def delete_activity(city_id, activity_id):
     if request.method == 'POST':
         if 'nonce' not in login_session or \
            login_session['nonce'] != request.form['nonce']:
-            flash("You are not authorized to perform this action")
+            abort(403)
         else:
             session.delete(activity)
             session.commit()
