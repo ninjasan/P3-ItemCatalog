@@ -17,7 +17,6 @@ CLIENT_ID = json.loads(open('client_secret.json', 'r').read())['web']['client_id
 APPLICATION_NAME = "Roadtrip Catalog App"
 
 app = Flask(__name__)
-app.jinja_env.globals['nonce'] = generate_nonce()
 
 engine = create_engine('sqlite:///vacation_catalog_wUsers.db')
 Base.metadata.bind = engine
@@ -84,7 +83,7 @@ def login():
 
 @app.route('/about/')
 def about():
-     """Renders the about page."""
+    """Renders the about page."""
     return render_template('about.html')
 
 
@@ -171,11 +170,15 @@ def delete_city(city_id):
     city = session.query(City).filter(City.id == city_id).one()
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     if request.method == 'POST':
-        session.delete(city)
-        for activity in activities:
-            session.delete(activity)
-        session.commit()
-        flash("The location has been successfully delete.")
+        if 'nonce' not in login_session or login_session['nonce'] != request.form['nonce']:
+            flash("You are not authorized to perform this action")
+        else:
+            session.delete(city)
+            for activity in activities:
+                session.delete(activity)
+            session.commit()
+            flash("The location has been successfully delete.")
+            del login_session['nonce']
         return redirect(url_for('list_cities'))
     else:
         if 'user_id' not in login_session or city.user_id != login_session['user_id']:
@@ -298,9 +301,13 @@ def delete_activity(city_id, activity_id):
     city = session.query(City).filter(City.id == city_id).one()
     activity = session.query(Activity).filter(Activity.id == activity_id, Activity.city_id == city_id).one()
     if request.method == 'POST':
-        session.delete(activity)
-        session.commit()
-        flash("The activity has been successfully deleted from {0}".format(city.name))
+        if 'nonce' not in login_session or login_session['nonce'] != request.form['nonce']:
+            flash("You are not authorized to perform this action")
+        else:
+            session.delete(activity)
+            session.commit()
+            flash("The activity has been successfully deleted from {0}".format(city.name))
+            del login_session['nonce']
         return redirect(url_for('show_city', city_id=city_id))
     else:
         if 'user_id' not in login_session or activity.user_id != login_session['user_id']:
@@ -574,10 +581,16 @@ def getUserId(email):
 
 
 def generate_nonce():
-    if '_nonce' not in login_session:
-        login_session['_nonce'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
-    return login_session['_nonce']
-    
+    """
+    Provides functionality to create a random one-time use key
+
+    Returns:
+      a random one-time use key
+    """
+    if 'nonce' not in login_session:
+        login_session['nonce'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    return login_session['nonce']
+app.jinja_env.globals['nonce'] = generate_nonce
     
 if __name__ == '__main__':
     app.secret_key = "super_secret_key"
