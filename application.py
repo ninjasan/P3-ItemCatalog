@@ -230,7 +230,7 @@ def show_city(city_id):
     city = get_city(city_id)
     activities = session.query(Activity).filter(
             Activity.city_id == city_id).all()
-    creator = get_creator(city)
+    creator = get_creator(city.user_id)
 
     if 'user_id' not in login_session or \
        creator.id != login_session['user_id']:
@@ -256,7 +256,7 @@ def show_activity(city_id, activity_id):
     """
     city = get_city(city_id)
     activity = get_activity(city_id, activity_id)
-    creator = get_creator(activity)
+    creator = get_creator(activity.user_id)
 
     if 'user_id' not in login_session or \
        creator.id != login_session['user_id']:
