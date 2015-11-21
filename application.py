@@ -206,7 +206,7 @@ def delete_city(city_id):
             for activity in activities:
                 session.delete(activity)
             session.commit()
-            flash("The location has been successfully delete.")
+            flash("The location has been successfully deleted.")
             del login_session['nonce']
         return redirect(url_for('list_cities'))
     else:
