@@ -148,6 +148,7 @@ def edit_city(city_id):
     Args:
       city_id: the unique identifier for the city.
     """
+    city = get_city(city_id)
     if request.method == 'POST':
         session.query(City).filter(City.id == city_id).update(
             {City.name: request.form['name'],
@@ -157,10 +158,9 @@ def edit_city(city_id):
              City.image: request.form['image']},
             synchronize_session=False)
         session.commit()
-        flash("{0} has been successfully editted".format(city.name))
+        flash("{0} has been successfully edited".format(city.name))
         return redirect(url_for('show_city', city_id=city.id))
     else:
-        city = get_city(city_id)
         if 'user_id' not in login_session or \
            city.user_id != login_session['user_id']:
             return redirect(url_for('show_city', city_id=city.id))
