@@ -6,8 +6,14 @@
         <div class="row">
             <div class="col-xs-12 text-center">
                 <h1>404 Not Found</h1>
-                The resource you're looking for does not exist.
-                Return to the <a href="{{url_for('list_cities')}}">Cities</a> page.
+                <p>The resource you're looking for does not exist.</p>
+                <p>Return to the <a href="{{url_for('list_cities')}}">Cities</a> page.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h3>Error Information</h3>
+                <p>{{error}}</p>
             </div>
         </div>
     </div>

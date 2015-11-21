@@ -11,6 +11,7 @@ from flask import jsonify, make_response, abort
 from flask import session as login_session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from database_setup import Base, User, City, Activity
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
@@ -27,14 +28,14 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-@app.route('/cities/JSON')
+@app.route('/cities/JSON/')
 def cities_JSON():
     """Returns list of cities in JSON format."""
     cities = session.query(City).all()
     return jsonify(cities=[city.serialize for city in cities])
 
 
-@app.route('/cities/<int:city_id>/JSON')
+@app.route('/cities/<int:city_id>/JSON/')
 def city_JSON(city_id):
     """
     Returns a city in JSON format.
@@ -42,11 +43,11 @@ def city_JSON(city_id):
     Args:
       city_id: the unique identifier for the city
     """
-    city = session.query(City).filter(City.id == city_id).one()
+    city = get_city(city_id)
     return jsonify(city=city.serialize)
 
 
-@app.route('/cities/<int:city_id>/activities/JSON')
+@app.route('/cities/<int:city_id>/activities/JSON/')
 def city_activities_JSON(city_id):
     """
     Returns list of activities for a city in JSON format.
@@ -54,13 +55,12 @@ def city_activities_JSON(city_id):
     Args:
       city_id: the unique identifier for the city.
     """
-    city = session.query(City).filter(City.id == city_id).one()
     activities = \
         session.query(Activity).filter(Activity.city_id == city_id).all()
     return jsonify(activities=[i.serialize for i in activities])
 
 
-@app.route('/cities/<int:city_id>/activities/<int:activity_id>/JSON')
+@app.route('/cities/<int:city_id>/activities/<int:activity_id>/JSON/')
 def activity_JSON(city_id, activity_id):
     """Returns an activity within a city in JSON format.
 
@@ -76,12 +76,12 @@ def activity_JSON(city_id, activity_id):
 
 @app.errorhandler(403)
 def action_unauthorized(error):
-    return render_template('error_403.html'), 403
+    return render_template('error_403.html', error=error), 403
 
 
 @app.errorhandler(404)
 def entity_not_found(error):
-    return render_template('error_404.html'), 404
+    return render_template('error_404.html', error=error), 404
 
 
 @app.route('/')
@@ -105,7 +105,10 @@ def about():
 def list_cities():
     """Renders the main cities page, with all the cities"""
     cities = session.query(City).all()
-    return render_template('list_cities.html', cities=cities)
+    if 'user_id' not in login_session:
+        return render_template('list_cities_public.html', cities=cities)
+    else:
+        return render_template('list_cities.html', cities=cities)
 
 
 @app.route('/cities/new/', methods=['GET', 'POST'])
@@ -128,7 +131,10 @@ def new_city():
         flash("{0} has been successfully added.".format(city_to_add.name))
         return redirect(url_for('list_cities'))
     else:
-        return render_template('new_city.html')
+        if 'user_id' not in login_session:
+            return redirect(url_for('list_cities'))
+        else:
+            return render_template('new_city.html')
 
 
 @app.route('/cities/<int:city_id>/edit/', methods=['GET', 'POST'])
@@ -142,7 +148,6 @@ def edit_city(city_id):
     Args:
       city_id: the unique identifier for the city.
     """
-    city = session.query(City).filter(City.id == city_id).one()
     if request.method == 'POST':
         session.query(City).filter(City.id == city_id).update(
             {City.name: request.form['name'],
@@ -155,6 +160,7 @@ def edit_city(city_id):
         flash("{0} has been successfully editted".format(city.name))
         return redirect(url_for('show_city', city_id=city.id))
     else:
+        city = get_city(city_id)
         if 'user_id' not in login_session or \
            city.user_id != login_session['user_id']:
             return redirect(url_for('show_city', city_id=city.id))
@@ -173,9 +179,9 @@ def delete_city(city_id):
     Args:
       city_id: the unique identifier for the city.
     """
-    city = session.query(City).filter(City.id == city_id).one()
+    city = get_city(city_id)
     activities = session.query(Activity).filter(
-        Activity.city_id == city_id).all()
+                    Activity.city_id == city_id).all()
     if request.method == 'POST':
         if 'nonce' not in login_session or \
            login_session['nonce'] != request.form['nonce']:
@@ -205,10 +211,10 @@ def show_city(city_id):
     Args:
       city_id: the unique identifier for the city.
     """
-    city = session.query(City).filter(City.id == city_id).one()
+    city = get_city(city_id)
     activities = session.query(Activity).filter(
-        Activity.city_id == city_id).all()
-    creator = session.query(User).filter(User.id == City.user_id).one()
+            Activity.city_id == city_id).all()
+    creator = get_creator(city)
 
     if 'user_id' not in login_session or \
        creator.id != login_session['user_id']:
@@ -232,10 +238,10 @@ def show_activity(city_id, activity_id):
       city_id: the unique identifier for the city.
       activity_id: the unique identifier for the activity in that city
     """
-    city = session.query(City).filter(City.id == city_id).one()
-    activity = session.query(Activity).filter(Activity.id == activity_id,
-                                              Activity.city_id == city_id).one()
-    creator = session.query(User).filter(User.id == activity.user_id).one()
+    city = get_city(city_id)
+    activity = get_activity(city_id, activity_id)
+    creator = get_creator(activity)
+
     if 'user_id' not in login_session or \
        creator.id != login_session['user_id']:
         return render_template('show_activity_public.html',
@@ -261,7 +267,8 @@ def new_activity(city_id):
     Args:
       city_id: the unique identifier for the city.
     """
-    city = session.query(City).filter(City.id == city_id).one()
+    city = get_city(city_id)
+
     if request.method == 'POST':
         activity_to_add = Activity(name=request.form['name'],
                                    city_id=city_id,
@@ -278,6 +285,8 @@ def new_activity(city_id):
                                                         city.name))
         return redirect(url_for('show_city', city_id=city_id))
     else:
+        if 'user_id' not in login_session:
+            return redirect(url_for('show_city', city_id=city_id))
         return render_template('new_activity.html', city=city)
 
 
@@ -295,9 +304,9 @@ def edit_activity(city_id, activity_id):
       city_id: the unique identifier for the city.
       activity_id: the unique identifier for the activity in that city
     """
-    city = session.query(City).filter(City.id == city_id).one()
-    activity = session.query(Activity).filter(Activity.id == activity_id,
-                                              Activity.city_id == city_id).one()
+    city = get_city(city_id)
+    activity = get_activity(city_id, activity_id)
+
     if request.method == 'POST':
         session.query(Activity).filter(Activity.id == activity_id,
                                        Activity.city_id == city_id).update(
@@ -338,9 +347,9 @@ def delete_activity(city_id, activity_id):
       city_id: the unique identifier for the city.
       activity_id: the unique identifier for the activity in that city
     """
-    city = session.query(City).filter(City.id == city_id).one()
-    activity = session.query(Activity).filter(Activity.id == activity_id,
-                                              Activity.city_id == city_id).one()
+    city = get_city(city_id)
+    activity = get_activity(city_id, activity_id)
+
     if request.method == 'POST':
         if 'nonce' not in login_session or \
            login_session['nonce'] != request.form['nonce']:
@@ -638,6 +647,31 @@ def getUserId(email):
         return user.id
     except:
         return None
+
+
+def get_city(city_id):
+    try:
+        city = session.query(City).filter(City.id == city_id).one()
+    except NoResultFound, error:
+        abort(404, error)
+    return city
+
+
+def get_activity(city_id, activity_id):
+    try:
+        activity = session.query(Activity).filter(Activity.id == activity_id,
+                                                  Activity.city_id == city_id).one()
+    except NoResultFound, error:
+        abort(404, error)
+    return activity
+
+
+def get_creator(item):
+    try:
+        creator = session.query(User).filter(User.id == item.user_id).one()
+    except NoResultFound, error:
+        abort(404, error)
+    return creator
 
 
 def generate_state_key():
