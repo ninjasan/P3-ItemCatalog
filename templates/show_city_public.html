@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip to {{city.name}}{% endblock title %}
 
-{% block header_attr %}class="city_header" style="background-image: url('{{city.image}}')"{% endblock header_attr %}
+{% block header_attr %}class="page_header" style="background-image: url('{{city.image}}')"{% endblock header_attr %}
 {% block header %}
         <div class="container">
             <div class="row">
@@ -15,7 +15,7 @@
 {% endblock header %}
 
 {% block content %}
-    <section class="city_description">
+    <section class="item_description">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
@@ -46,10 +46,10 @@
         </div>
     </section>
 
-    <section class="city_activities">
+    <section class="n_section">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 text-center city_activities_header">
+                <div class="col-xs-12 text-center section_header">
                     Activities
                 </div>
             </div>
@@ -70,14 +70,14 @@
                 <div class="row text-center">
                     <!-- if there are more than 3 items left draw all column with data -->
                     {% for col in range(0, 3)%}
-                        <div class="col-md-4 city_activity_item">
+                        <div class="col-md-4 item city_activity_item">
                             {% if index+col < activities|length %}
-                                <div class="city_activity_item_bgimage"
+                                <div class="item_bgimage"
                                      style="background-image:url('{{activities[index+col].image}}');">
                                 </div>
                                 <div class="city_activity_item_text">
                                     <h4>{{activities[index+col].name}}</h4>
-                                    <p id="city_activity_item_desc{{index+col}}">{{activities[index+col].description}}</p>
+                                    <p id="item_desc{{index+col}}">{{activities[index+col].description}}</p>
                                     <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activities[index+col].id)}}" class="btn btn-default btn-sm">Learn More</a></p>
                                 </div>
                             {% endif %}
@@ -92,7 +92,7 @@
         </div>
     </section>
 
-    <section class="city_options">
+    <section class="user_options">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-12">
@@ -116,7 +116,7 @@
     <script>
         $(document).ready(function() {
             for (i=0; i<{{activities|length}}; i++) {
-                var cur_id = '#city_activity_item_desc' + i
+                var cur_id = '#item_desc' + i
                 var new_str = $(cur_id).text().substr(0,200) + "...";
                 $(cur_id).text(new_str);
             }

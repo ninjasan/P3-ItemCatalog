@@ -21,7 +21,7 @@
                 <form class="form-horizontal" role="form" action="{{url_for('delete_city', city_id=city.id)}}" method="post">
                     <input type="hidden" name="nonce" value="{{nonce()}}">
                     <button type="submit" class="btn btn-danger">Delete</button>
-                    <a class="btn btn-default" role="button" href="{{url_for('list_cities')}}">Cancel</a>
+                    <a class="btn btn-default" role="button" href="{{url_for('show_city', city_id=city.id)}}">Cancel</a>
                 </form>
             </div>
         </div>

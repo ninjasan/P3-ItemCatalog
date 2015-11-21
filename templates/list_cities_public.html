@@ -2,7 +2,7 @@
 {% block title %}Roadtrip{% endblock title %}
 
     {% block header_attr %}
-        class="city_header" style="
+        class="page_header" style="
             background-image: url('https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg');
             background-position: bottom center;
             "
@@ -40,10 +40,10 @@
             </div>
 
             {% for city in cities %}
-                <div class="row city_item">
+                <div class="row item city_item">
                     <div class="col-md-4">
                         <!-- <img class="img-responsive" src="{{city.image}}"> -->
-                        <div class="city_item_bgimage"
+                        <div class="item_bgimage"
                              style="background-image:url('{{city.image}}');">
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             {{city.name}}, {{city.state_provence}}, {{city.country}}
                             <a href="{{url_for('show_city', city_id=city.id)}}" class="btn btn-default btn-sm">Learn more</a>
                         </h3>
-                        <p id="city_item_desc{{loop.index0}}">{{city.description}}</p>
+                        <p id="item_desc{{loop.index0}}">{{city.description}}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -65,7 +65,7 @@
     <script>
         $(document).ready(function() {
             for (i=0; i<{{cities|length}}; i++) {
-                var cur_id = '#city_item_desc' + i
+                var cur_id = '#item_desc' + i
                 if($(cur_id).text().length > 500) {
                     var new_str = $(cur_id).text().substr(0,500) + "...";
                     $(cur_id).text(new_str);

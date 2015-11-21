@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip to {{activity.name}}{% endblock title %}
 
-{% block header_attr %}class="activity_header" style="background-image: url('{{activity.image}}')"{% endblock header_attr %}
+{% block header_attr %}class="page_header" style="background-image: url('{{activity.image}}')"{% endblock header_attr %}
 {% block header %}
         <div class="container">
             <div class="row">
@@ -34,7 +34,7 @@
         </div>
     </section>
 
-    <section class="activity_description">
+    <section class="item_description">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
@@ -44,10 +44,10 @@
         </div>
     </section>
 
-    <section class="activity_basic_info">
+    <section class="n_section">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 text-center activity_basic_info_header">
+                <div class="col-xs-12 text-center section_header">
                     Basic Info
                 </div>
             </div>
@@ -61,7 +61,7 @@
         </div>
     </section>
 
-    <section class="activity_options">
+    <section class="user_options">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-12">
