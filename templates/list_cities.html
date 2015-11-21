@@ -4,14 +4,23 @@
             <!-- Add one more row, for a new city -->
             <div class="row item city_item">
                 <div class="col-md-4">
-                    <img class="img-responsive" src="{{url_for('static', filename='addnew_g.png')}}">
+                    <img class="img-responsive"
+                         src="{{url_for('static', filename='addnew_g.png')}}">
                 </div>
                 <div class="col-md-8">
                     <h3>
                         Have an idea for a new location?
-                        <a href="{{url_for('new_city')}}" class="btn btn-info btn-sm" role="button">Add new</a>
+                        <a href="{{url_for('new_city')}}"
+                           class="btn btn-info btn-sm"
+                           role="button">
+                            Add new
+                        </a>
                     </h3>
-                    <p>Is there somewhere else you'd like to go? Add it here and allow others to take joy from your roadtrip savvy!</p>
+                    <p>
+                        Is there somewhere else you'd like to go?
+                        Add it here and allow others to take joy from your
+                        roadtrip savvy!
+                    </p>
                 </div>
             </div>
     {% endblock add_button %}

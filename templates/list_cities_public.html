@@ -1,65 +1,76 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip{% endblock title %}
 
-    {% block header_attr %}
-        class="page_header" style="
-            background-image: url('https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg');
-            background-position: bottom center;
-            "
-    {% endblock header_attr %}
+{% block header_attr %}
+    class="page_header"
+    style="background-image:
+        url('https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg');
+        background-position: bottom center;"
+{% endblock header_attr %}
 
-    {% block header %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1>Cities</h1>
-                    <hr class="small">
-                    <span class="subheading">Where would you like to go?</span>
+{% block header %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Cities</h1>
+                <hr class="small">
+                <span class="subheading">Where would you like to go?</span>
+            </div>
+        </div>
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                <div class = 'flash'>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-info">
+                                    <a href="#"
+                                       class="close"
+                                       data-dismiss="alert"
+                                       aria-label="close">
+                                        &times;
+                                    </a>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </div>
-    {% endblock header %}
 
-    {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
-                    <div class = 'flash'>
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <div class="alert alert-info">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ message }}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %}
+        {% for city in cities %}
+            <div class="row item city_item">
+                <div class="col-md-4">
+                    <div class="item_bgimage"
+                         style="background-image:url('{{city.image}}');">
                     </div>
+                </div>
+                <div class="col-md-8">
+                    <h3>
+                        {{city.name}},
+                        {{city.state_provence}},
+                        {{city.country}}
+                        <a href="{{url_for('show_city', city_id=city.id)}}"
+                           class="btn btn-default btn-sm">
+                            Learn more
+                        </a>
+                    </h3>
+                    <p id="item_desc{{loop.index0}}">
+                        {{city.description}}
+                    </p>
                 </div>
             </div>
-
-            {% for city in cities %}
-                <div class="row item city_item">
-                    <div class="col-md-4">
-                        <!-- <img class="img-responsive" src="{{city.image}}"> -->
-                        <div class="item_bgimage"
-                             style="background-image:url('{{city.image}}');">
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h3>
-                            {{city.name}}, {{city.state_provence}}, {{city.country}}
-                            <a href="{{url_for('show_city', city_id=city.id)}}" class="btn btn-default btn-sm">Learn more</a>
-                        </h3>
-                        <p id="item_desc{{loop.index0}}">{{city.description}}</p>
-                    </div>
-                </div>
-            {% endfor %}
-            {% block add_button %}
-            {% endblock add_button %}
-        </div>
-    {% endblock content %}
+        {% endfor %}
+        {% block add_button %}
+        {% endblock add_button %}
+    </div>
+{% endblock content %}
 
 {% block scripts %}
     <script>

@@ -16,12 +16,27 @@
         <div class="row">
             <div class="col-xs-12 col-sm-offset-2 col-sm-8">
                 <p>Are you sure you want to delete this activity?</p>
-                <p>What about all the other people that haven't been here yet?</p>
+                <p>
+                    What about all the other people that haven't been here yet?
+                </p>
 
-                <form class="form-horizontal" role="form" action="{{url_for('delete_activity', city_id=city.id, activity_id=activity.id)}}" method="post">
+                <form class="form-horizontal"
+                      role="form"
+                      action="{{url_for('delete_activity',
+                                        city_id=city.id,
+                                        activity_id=activity.id)}}"
+                      method="post">
                     <input type="hidden" name="nonce" value="{{nonce()}}">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    <a class="btn btn-default" role="button" href="{{url_for('show_activity', city_id=city.id, activity_id=activity.id)}}">Cancel</a>
+                    <button type="submit" class="btn btn-danger">
+                        Delete
+                    </button>
+                    <a class="btn btn-default"
+                       role="button"
+                       href="{{url_for('show_activity',
+                                       city_id=city.id,
+                                       activity_id=activity.id)}}">
+                        Cancel
+                    </a>
                 </form>
             </div>
         </div>

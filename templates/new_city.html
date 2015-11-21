@@ -10,6 +10,7 @@
         </div>
     </div>
 {% endblock header %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -17,23 +18,45 @@
 
                 <p>Thanks for your help!</p>
 
-                <form class="form-horizontal" role="form" action="{{url_for('new_city')}}" method="post">
+                <form class="form-horizontal"
+                      role="form"
+                      action="{{url_for('new_city')}}"
+                      method="post">
                     <div class="form-group">
-                        <label class="control-label col-xs-2" for="name">City Name:</label>
+                        <label class="control-label col-xs-2"
+                               for="name">
+                            City Name:
+                        </label>
                         <div class="col-xs-10">
-                            <input type="text" class="form-control" id="name" name="name" maxlength="60">
+                            <input type="text"
+                                   class="form-control"
+                                   id="name"
+                                   name="name"
+                                   maxlength="60">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2" for="state">State/Provence:</label>
+                        <label class="control-label col-xs-2"
+                               for="state">
+                            State/Provence:
+                        </label>
                         <div class="col-xs-10">
-                            <input type="text" class="form-control" id="state" name="state" maxlength="100">
+                            <input type="text"
+                                   class="form-control"
+                                   id="state"
+                                   name="state"
+                                   maxlength="100">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2" for="country">Country:</label>
+                        <label class="control-label col-xs-2"
+                               for="country">
+                            Country:
+                        </label>
                         <div class="col-xs-10">
-                            <select class="form-control" id="country" name="country">
+                            <select class="form-control"
+                                    id="country"
+                                    name="country">
                                 <option>USA</option>
                                 <option>Canada</option>
                                 <option>Mexico</option>
@@ -41,19 +64,41 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2" for="description">Description:</label>
+                        <label class="control-label col-xs-2"
+                               for="description">
+                            Description:
+                        </label>
                         <div class="col-xs-10">
-                            <textarea class="form-control" rows="5" id="description" name="description" maxlength="1000"></textarea>
+                            <textarea class="form-control"
+                                      rows="5"
+                                      id="description"
+                                      name="description"
+                                      maxlength="1000">
+                            </textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2" for="image">Image URL: </label>
+                        <label class="control-label col-xs-2"
+                               for="image">
+                            Image URL:
+                        </label>
                         <div class="col-xs-10">
-                            <input type="text" class="form-control" id="image" name="image" maxlength="150">
+                            <input type="text"
+                                   class="form-control"
+                                   id="image"
+                                   name="image"
+                                   maxlength="150">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                    <a class="btn btn-default" role="button" href="{{url_for('list_cities')}}">Cancel</a>
+                    <button type="submit"
+                            class="btn btn-default">
+                        Submit
+                    </button>
+                    <a class="btn btn-default"
+                       role="button"
+                       href="{{url_for('list_cities')}}">
+                        Cancel
+                    </a>
                 </form>
             </div>
         </div>

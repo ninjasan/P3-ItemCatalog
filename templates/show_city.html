@@ -1,14 +1,14 @@
 {% extends "show_city_logged_in.html" %}
 
 {% block buttons %}
-                        <a href="{{url_for('edit_city', city_id=city.id)}}"
-                           class="btn btn-default"
-                           role="button">
-                            Edit
-                        </a>
-                        <a href="{{url_for('delete_city', city_id=city.id)}}"
-                           class="btn btn-default"
-                           role="button">
-                            Delete
-                        </a>
+    <a href="{{url_for('edit_city', city_id=city.id)}}"
+       class="btn btn-default"
+       role="button">
+        Edit
+    </a>
+    <a href="{{url_for('delete_city', city_id=city.id)}}"
+       class="btn btn-default"
+       role="button">
+        Delete
+    </a>
 {% endblock buttons %}
