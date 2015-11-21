@@ -1,110 +1,115 @@
 {% extends "base.html" %}
 {% block title %}About{% endblock title %}
 
-    {% block header_attr %}
-        class="item_header" style="
-            background-image: url('https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg');
-            background-position: bottom center;
-            "
-    {% endblock header_attr %}
+{% block header_attr %}
+    class="item_header"
+    style="background-image:
+        url('https://farm1.staticflickr.com/661/22291175094_09e2838529_k.jpg');
+        background-position: bottom center;"
+{% endblock header_attr %}
 
-    {% block header %}
+{% block header %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>About Roadtrip</h1>
+                <hr class="small">
+                <span class="subheading">
+                    A project for the Udacity Fullstack Web Developer Nanodegree
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <section class="about_general">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
-                    <h1>About Roadtrip</h1>
-                    <hr class="small">
-                    <span class="subheading">A project for the Udacity Fullstack Web Developer Nanodegree</span>
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                    <p>Made by Pooja Mathur</p>
+                    <p>
+                        For Project 3 of Udacity.com's Fullstack Web Developer
+                        Nanodegree
+                    </p>
                 </div>
             </div>
         </div>
-    {% endblock header %}
-
-    {% block content %}
-        <section class="about_general">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
-                        <p>Made by Pooja Mathur</p>
-                        <p>For Project 3 of Udacity.com's Fullstack Web Developer Nanodegree</p>
-                    </div>
+    </section>
+    <section class="n_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center section_header">
+                    Credits
                 </div>
             </div>
-        </section>
-        <section class="n_section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 text-center section_header">
-                        Credits
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
-                        <p>This project was made possible by the following resources:</p>
-                        <ul>
-                            <li>Code</li>
-                                <ul>
-                                    <li>Sticky footer <a href="http://ryanfait.com/resources/footer-stick-to-bottom-of-page/">tutorial</a> by Ryan Fait</li>
-                                    <li>Udacity's <a href="https://www.udacity.com/course/authentication-authorization-oauth--ud330-nd">Authentication & Authorization: OAuth</a> course</li>
-                                    <li>CSRF Protection <a href="http://flask.pocoo.org/snippets/3/">sample</a> by Dan Jacob</li>
-                                </ul>
-                            <li>Content</li>
-                                <ul>
-                                    <li>Images: All images were either taken by me or are from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a></li>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                    <p>This project was made possible by the following resources:</p>
+                    <ul>
+                        <li>Code</li>
+                            <ul>
+                                <li>Sticky footer <a href="http://ryanfait.com/resources/footer-stick-to-bottom-of-page/">tutorial</a> by Ryan Fait</li>
+                                <li>Udacity's <a href="https://www.udacity.com/course/authentication-authorization-oauth--ud330-nd">Authentication & Authorization: OAuth</a> course</li>
+                                <li>CSRF Protection <a href="http://flask.pocoo.org/snippets/3/">sample</a> by Dan Jacob</li>
+                            </ul>
+                        <li>Content</li>
+                            <ul>
+                                <li>Images: All images were either taken by me or are from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a></li>
+                                    <ul>
+                                        <li>Login page, cities & about header image from Pooja Mathur</li>
+                                        <li>Seattle Discovery Park image from Pooja Mathur</li>
+                                        <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by/2.0/deed.en">Attribution 2.0 Generic</a> License. None of these items were altered for use on this project.</li>
                                         <ul>
-                                            <li>Login page, cities & about header image from Pooja Mathur</li>
-                                            <li>Seattle Discovery Park image from Pooja Mathur</li>
-                                            <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by/2.0/deed.en">Attribution 2.0 Generic</a> License. None of these items were altered for use on this project.</li>
-                                            <ul>
-                                                <li>Nitobe Memorial Garden's <a href="https://commons.wikimedia.org/wiki/File:Nitobe_Memorial_Garden_1.jpg">image</a> by Jennifer C.</li>
-                                                <li>Powell's City of Books' <a href="https://commons.wikimedia.org/wiki/File:Powell%27s_Books_entry.jpg">image</a> by edward stojakovic</li>
-                                            </ul>
-                                            <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by/2.0/deed.en">Attribution-ShareAlike 2.0 Generic</a> License. None of these items were altered for use on this project.</li>
-                                            <ul>
-                                                <li>Vancouvers's <a href="https://commons.wikimedia.org/wiki/File:English_Bay_Vancouver.jpg">image</a> by Andrew Raun</li>
-                                                <li>Museum of Anthropology's <a href="https://commons.wikimedia.org/wiki/File:UBC_Museum_of_Anthropology_Building_(Vancouver).jpg">image</a> by goldberg</li>
-                                            </ul>
-                                            <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Attribution-ShareAlike 3.0 Unported</a> License. None of these items were altered for use on this project.</li>
-                                            <ul>
-                                                <li>Seattle's <a href="https://commons.wikimedia.org/wiki/File:SeattleI5Skyline.jpg">image</a> by Cacophony</li>
-                                                <li>Pike Place Market's <a href="https://commons.wikimedia.org/wiki/File:Pike_Place_Market_Entrance.JPG">image</a> by Mtaylor444</li>
-                                                <li>Hiram M. Chittenden Locks <a href="https://commons.wikimedia.org/wiki/File:Chittenden_Locks_overview_01.jpg">image</a> by Joe Mabel</li>
-                                                <li>Space Needle's <a href="https://commons.wikimedia.org/wiki/File:SpaceNeedleQAHill.jpg">image</a> by Cacophony</li>
-                                                <li>Stanley Park's <a href="https://commons.wikimedia.org/wiki/File:Vancouver-stanley-park.jpg">image</a> by Zotium</li>
-                                                <li>Portland Japanese Garden's <a href="https://commons.wikimedia.org/wiki/File:Japanese_Garden_-1.jpg">image</a> by Adonelson</li>
-                                            </ul>
-                                            <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by/3.0/deed.en">Attribution 3.0 Unported</a> License. None of these items were altered for use on this project.</li>
-                                            <ul>
-                                                <li>Grouse Mountain's <a href="https://commons.wikimedia.org/wiki/File:GrouseMountain.jpg">image</a> by Ice-Babe</li>
-                                            </ul>
-                                            <li>Images shared into the public domain</li>
-                                            <ul>
-                                                <li>H.R. MacMillan Space Centre's <a href="https://commons.wikimedia.org/wiki/File:Van_museum_space_centre.jpg">image</a> by Bobanny</li>
-                                                <li>Granville Island's <a href="https://commons.wikimedia.org/wiki/File:Granville_Island.jpg">image</a> by Zhatt</li>
-                                                <li>Portland's <a href="https://commons.wikimedia.org/wiki/File:Portlandbridges.jpg">image</a> by Jami Dwyer</li>
-                                            </ul>
+                                            <li>Nitobe Memorial Garden's <a href="https://commons.wikimedia.org/wiki/File:Nitobe_Memorial_Garden_1.jpg">image</a> by Jennifer C.</li>
+                                            <li>Powell's City of Books' <a href="https://commons.wikimedia.org/wiki/File:Powell%27s_Books_entry.jpg">image</a> by edward stojakovic</li>
                                         </ul>
-                                    <li>Text descriptions of cities and activities</li>
+                                        <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by/2.0/deed.en">Attribution-ShareAlike 2.0 Generic</a> License. None of these items were altered for use on this project.</li>
                                         <ul>
-                                            <li>Seattle description: <a href="http://www.visitseattle.org/">Visit Seattle</a> website</li>
-                                            <li>Pike Place description: <a href="http://www.pikeplacemarket.org/">Pike Place</a> website</li>
-                                            <li>Space Needle description: <a href="http://www.spaceneedle.com/hours-directions/">Space Needle</a> website</li>
-                                            <li>Discovery Park description: <a href="http://www.seattle.gov/parks/environment/discovery.htm">Seattle City Parks</a> website</li>
-                                            <li>Vancouver description: <a href="http://www.hellobc.com/vancouver.aspx">Hello BC</a> website</li>
-                                            <li>Grouse Mountain description: <a href="http://www.hellobc.com/activitylisting/4543334/grouse-mountain-resort.aspx">Hello BC</a> website</li>
-                                            <li>Nitobe Memorial Garden description: <a href="http://www.hellobc.com/activitylisting/4580326/nitobe-memorial-garden.aspx">Hello BC</a> website</li>
-                                            <li>H.R. MacMillan Space Centre description: <a href="http://www.hellobc.com/activitylisting/100005/h-r-macmillan-space-centre.aspx">Hello BC</a> website</li>
-                                            <li>Stanley Park description: <a href="http://www.tourismvancouver.com/do/activities-attractions/hiking/stanley_park_hiking/">Tourism Vancouver</a> website</li>
-                                            <li>Granville Island description: <a href="http://www.hellobc.com/activitylisting/4547354/granville-island.aspx">Hello BC</a> website</li>
-                                            <li>Museum of Anthropology description: <a href="http://www.hellobc.com/activitylisting/4542191/museum-of-anthropology.aspx">Hello BC</a> website</li>
-                                            <li>Portland description: <a href="https://en.wikipedia.org/wiki/Portland,_Oregon">Wikipedia</a></li>
-                                            <li>Portland Japanese Garden description: <a href="http://www.travelportland.com/article/portland-japanese-garden/">Travel Portland</a> website</li>
-                                            <li>Powell's City of Books description: <a href="http://www.powells.com/info/about-us">Powell's</a> website</li>
+                                            <li>Vancouvers's <a href="https://commons.wikimedia.org/wiki/File:English_Bay_Vancouver.jpg">image</a> by Andrew Raun</li>
+                                            <li>Museum of Anthropology's <a href="https://commons.wikimedia.org/wiki/File:UBC_Museum_of_Anthropology_Building_(Vancouver).jpg">image</a> by goldberg</li>
                                         </ul>
-                                </ul>
-                        </ul>
-                    </div>
+                                        <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Attribution-ShareAlike 3.0 Unported</a> License. None of these items were altered for use on this project.</li>
+                                        <ul>
+                                            <li>Seattle's <a href="https://commons.wikimedia.org/wiki/File:SeattleI5Skyline.jpg">image</a> by Cacophony</li>
+                                            <li>Pike Place Market's <a href="https://commons.wikimedia.org/wiki/File:Pike_Place_Market_Entrance.JPG">image</a> by Mtaylor444</li>
+                                            <li>Hiram M. Chittenden Locks <a href="https://commons.wikimedia.org/wiki/File:Chittenden_Locks_overview_01.jpg">image</a> by Joe Mabel</li>
+                                            <li>Space Needle's <a href="https://commons.wikimedia.org/wiki/File:SpaceNeedleQAHill.jpg">image</a> by Cacophony</li>
+                                            <li>Stanley Park's <a href="https://commons.wikimedia.org/wiki/File:Vancouver-stanley-park.jpg">image</a> by Zotium</li>
+                                            <li>Portland Japanese Garden's <a href="https://commons.wikimedia.org/wiki/File:Japanese_Garden_-1.jpg">image</a> by Adonelson</li>
+                                        </ul>
+                                        <li>Images shared under the Creative Commons <a href="https://creativecommons.org/licenses/by/3.0/deed.en">Attribution 3.0 Unported</a> License. None of these items were altered for use on this project.</li>
+                                        <ul>
+                                            <li>Grouse Mountain's <a href="https://commons.wikimedia.org/wiki/File:GrouseMountain.jpg">image</a> by Ice-Babe</li>
+                                        </ul>
+                                        <li>Images shared into the public domain</li>
+                                        <ul>
+                                            <li>H.R. MacMillan Space Centre's <a href="https://commons.wikimedia.org/wiki/File:Van_museum_space_centre.jpg">image</a> by Bobanny</li>
+                                            <li>Granville Island's <a href="https://commons.wikimedia.org/wiki/File:Granville_Island.jpg">image</a> by Zhatt</li>
+                                            <li>Portland's <a href="https://commons.wikimedia.org/wiki/File:Portlandbridges.jpg">image</a> by Jami Dwyer</li>
+                                        </ul>
+                                    </ul>
+                                <li>Text descriptions of cities and activities</li>
+                                    <ul>
+                                        <li>Seattle description: <a href="http://www.visitseattle.org/">Visit Seattle</a> website</li>
+                                        <li>Pike Place description: <a href="http://www.pikeplacemarket.org/">Pike Place</a> website</li>
+                                        <li>Space Needle description: <a href="http://www.spaceneedle.com/hours-directions/">Space Needle</a> website</li>
+                                        <li>Discovery Park description: <a href="http://www.seattle.gov/parks/environment/discovery.htm">Seattle City Parks</a> website</li>
+                                        <li>Vancouver description: <a href="http://www.hellobc.com/vancouver.aspx">Hello BC</a> website</li>
+                                        <li>Grouse Mountain description: <a href="http://www.hellobc.com/activitylisting/4543334/grouse-mountain-resort.aspx">Hello BC</a> website</li>
+                                        <li>Nitobe Memorial Garden description: <a href="http://www.hellobc.com/activitylisting/4580326/nitobe-memorial-garden.aspx">Hello BC</a> website</li>
+                                        <li>H.R. MacMillan Space Centre description: <a href="http://www.hellobc.com/activitylisting/100005/h-r-macmillan-space-centre.aspx">Hello BC</a> website</li>
+                                        <li>Stanley Park description: <a href="http://www.tourismvancouver.com/do/activities-attractions/hiking/stanley_park_hiking/">Tourism Vancouver</a> website</li>
+                                        <li>Granville Island description: <a href="http://www.hellobc.com/activitylisting/4547354/granville-island.aspx">Hello BC</a> website</li>
+                                        <li>Museum of Anthropology description: <a href="http://www.hellobc.com/activitylisting/4542191/museum-of-anthropology.aspx">Hello BC</a> website</li>
+                                        <li>Portland description: <a href="https://en.wikipedia.org/wiki/Portland,_Oregon">Wikipedia</a></li>
+                                        <li>Portland Japanese Garden description: <a href="http://www.travelportland.com/article/portland-japanese-garden/">Travel Portland</a> website</li>
+                                        <li>Powell's City of Books description: <a href="http://www.powells.com/info/about-us">Powell's</a> website</li>
+                                    </ul>
+                            </ul>
+                    </ul>
                 </div>
             </div>
-        </section>
-    {% endblock content %}
+        </div>
+    </section>
+{% endblock content %}

@@ -19,19 +19,28 @@
             <nav class="navbar navbar-inverse">
                 <div class="container">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_bar_options">
+                        <button type="button"
+                                class="navbar-toggle"
+                                data-toggle="collapse"
+                                data-target="#nav_bar_options">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand"href="{{url_for('login')}}"><img src="{{url_for('static', filename='logo_v2.png')}}" style="height: 25px;"></a>
+                        <a class="navbar-brand"href="{{url_for('login')}}">
+                            <img src="{{url_for('static', filename='logo_v2.png')}}" style="height: 25px;">
+                        </a>
                     </div>
                     <div class="collapse navbar-collapse" id="nav_bar_options">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="{{url_for('list_cities')}}">Cities</a></li>
                             <li><a href="{{url_for('about')}}">About</a></li>
                             {% if 'username' not in session %}
-                                <li><a href="{{url_for('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                                <li>
+                                    <a href="{{url_for('login')}}">
+                                        <span class="glyphicon glyphicon-log-in"></span> Login
+                                    </a>
+                                </li>
                             {% else %}
                                 <li><a href="{{url_for('disconnect')}}">Logout</a></li>
                             {% endif %}
@@ -59,7 +68,9 @@
                     <a href="{{url_for('about')}}">About</a>
                 </div>
                 <div class="col-xs-4">
-                    <a href="{{url_for('login')}}"><img src="{{url_for('static', filename='logo_v2.png')}}" style="height: 25px;"></a>
+                    <a href="{{url_for('login')}}">
+                        <img src="{{url_for('static', filename='logo_v2.png')}}" style="height: 25px;">
+                    </a>
                 </div>
                 <div class="col-xs-4">
                     <p>Made by Pooja</p>

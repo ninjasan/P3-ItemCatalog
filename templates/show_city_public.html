@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Roadtrip to {{city.name}}{% endblock title %}
 
-{% block header_attr %}class="page_header" style="background-image: url('{{city.image}}')"{% endblock header_attr %}
+{% block header_attr %}
+    class="page_header"
+    style="background-image: url('{{city.image}}')"
+{% endblock header_attr %}
+
 {% block header %}
         <div class="container">
             <div class="row">
@@ -34,7 +38,12 @@
                             {% if messages %}
                                 {% for message in messages %}
                                     <div class="alert alert-info">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <a href="#"
+                                           class="close"
+                                           data-dismiss="alert"
+                                           aria-label="close">
+                                            &times;
+                                        </a>
                                         {{ message }}
                                     </div>
                                 {% endfor %}
@@ -55,7 +64,8 @@
             </div>
 
             {% if activities|length is divisibleby(3) %}
-                <!-- then need to add one more row for add new, and two extra col -->
+                <!-- then need to add one more row for add new,
+                     and two extra col -->
                 {% set cols = activities|length + 3 %}
             {% endif %}
             {% if activities|length % 3 == 1 %}
@@ -68,7 +78,8 @@
             {% endif %}
             {% for index in range(0, cols, 3) %}
                 <div class="row text-center">
-                    <!-- if there are more than 3 items left draw all column with data -->
+                    <!-- if there are more than 3 items left draw all
+                    column with data -->
                     {% for col in range(0, 3)%}
                         <div class="col-md-4 item city_activity_item">
                             {% if index+col < activities|length %}
@@ -77,8 +88,17 @@
                                 </div>
                                 <div class="city_activity_item_text">
                                     <h4>{{activities[index+col].name}}</h4>
-                                    <p id="item_desc{{index+col}}">{{activities[index+col].description}}</p>
-                                    <p><a href="{{url_for('show_activity', city_id=city.id, activity_id=activities[index+col].id)}}" class="btn btn-default btn-sm">Learn More</a></p>
+                                    <p id="item_desc{{index+col}}">
+                                        {{activities[index+col].description}}
+                                    </p>
+                                    <p>
+                                        <a href="{{url_for('show_activity',
+                                                           city_id=city.id,
+                                                           activity_id=activities[index+col].id)}}"
+                                           class="btn btn-default btn-sm">
+                                            Learn More
+                                        </a>
+                                    </p>
                                 </div>
                             {% endif %}
                             {% if index+col == activities|length %}
