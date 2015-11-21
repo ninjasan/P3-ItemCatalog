@@ -1,4 +1,17 @@
-{% extends "show_city_logged_in.html" %}
+{% extends "show_city_public.html" %}
+
+{% block add_button %}
+    <img class="img-responsive"
+         src="{{url_for('static', filename='addnew_g.png')}}">
+    <h4>Add New Activity</h4>
+    <p>Have an idea for a new activity?</p>
+    <p>
+        <a href="{{url_for('new_activity', city_id=city.id)}}"
+           class="btn btn-default btn-sm">
+            click here
+        </a>
+    </p>
+{% endblock add_button %}
 
 {% block buttons %}
     <a href="{{url_for('edit_city', city_id=city.id)}}"
