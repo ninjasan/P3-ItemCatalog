@@ -114,8 +114,7 @@ def delete_city(city_id):
       city_id: the unique identifier for the city.
     """
     city = get_city(city_id)
-    activities = session.query(Activity).filter(
-                    Activity.city_id == city_id).all()
+    activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     if request.method == 'POST':
         if 'nonce' not in login_session or \
            login_session['nonce'] != request.form['nonce']:
@@ -148,11 +147,10 @@ def show_city(city_id):
     """
     city = get_city(city_id)
     activities = session.query(Activity).filter(
-            Activity.city_id == city_id).all()
+        Activity.city_id == city_id).all()
     creator = get_creator(city.user_id)
 
-    if 'user_id' not in login_session or \
-       creator.id != login_session['user_id']:
+    if 'user_id' not in login_session or creator.id != login_session['user_id']:
         return render_template('show_city_public.html',
                                city=city,
                                activities=activities,
@@ -216,8 +214,8 @@ def new_activity(city_id):
         session.add(activity_to_add)
         session.commit()
         flash("{0} has been successfully added to {1}".format(
-                                                        activity_to_add.name,
-                                                        city.name))
+            activity_to_add.name,
+            city.name))
         return redirect(url_for('.show_city', city_id=city_id))
     else:
         if 'user_id' not in login_session:
@@ -225,8 +223,10 @@ def new_activity(city_id):
         return render_template('new_activity.html', city=city)
 
 
-@main.route('cities/<int:city_id>/activities/<int:activity_id>/edit/',
-           methods=['GET', 'POST'])
+@main.route(
+    'cities/<int:city_id>/activities/<int:activity_id>/edit/',
+    methods=['GET', 'POST']
+)
 def edit_activity(city_id, activity_id):
     """
     Provides functionality for editing an activity for a city
@@ -243,14 +243,19 @@ def edit_activity(city_id, activity_id):
     activity = get_activity(city_id, activity_id)
 
     if request.method == 'POST':
-        session.query(Activity).filter(Activity.id == activity_id,
-                                       Activity.city_id == city_id).update(
-            {Activity.name: request.form['name'],
-             Activity.address: request.form['address'],
-             Activity.description: request.form['description'],
-             Activity.category: request.form['category'],
-             Activity.website: request.form['website'],
-             Activity.image: request.form['image']})
+        session.query(Activity).filter(
+            Activity.id == activity_id,
+            Activity.city_id == city_id
+        ).update(
+            {
+                Activity.name: request.form['name'],
+                Activity.address: request.form['address'],
+                Activity.description: request.form['description'],
+                Activity.category: request.form['category'],
+                Activity.website: request.form['website'],
+                Activity.image: request.form['image']
+            }
+        )
         session.commit()
         flash("This item has been successfully edited!")
         return redirect(url_for('.show_activity',
@@ -268,8 +273,10 @@ def edit_activity(city_id, activity_id):
                                    activity=activity)
 
 
-@main.route('cities/<int:city_id>/activities/<int:activity_id>/delete/',
-           methods=['GET', 'POST'])
+@main.route(
+    'cities/<int:city_id>/activities/<int:activity_id>/delete/',
+    methods=['GET', 'POST']
+)
 def delete_activity(city_id, activity_id):
     """
     Provides:

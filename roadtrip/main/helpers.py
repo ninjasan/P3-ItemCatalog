@@ -19,9 +19,11 @@ def create_user(login_session):
     Args:
         login_session: the dictionary storing login details
     """
-    new_user = User(name=login_session['username'],
-                   email=login_session['email'],
-                   picture_url=login_session['picture'])
+    new_user = User(
+        name=login_session['username'],
+        email=login_session['email'],
+        picture_url=login_session['picture']
+    )
     session.add(new_user)
     session.commit()
     user = session.query(User).filter(
@@ -134,8 +136,10 @@ def generate_key():
         a random string of characters
     """
     return ''.join(
-            random.choice(string.ascii_uppercase + string.digits)
-            for x in xrange(32))
+        random.choice(string.ascii_uppercase + string.digits)
+        for x in xrange(32)
+    )
+
 
 def generate_nonce():
     """
