@@ -218,7 +218,8 @@ def new_activity(city_id):
             city.name))
         return redirect(url_for('.show_city', city_id=city_id))
     else:
-        if 'user_id' not in login_session:
+        if 'user_id' not in login_session or \
+                city.user_id != login_session['user_id']:
             return redirect(url_for('.show_city', city_id=city_id))
         return render_template('new_activity.html', city=city)
 
