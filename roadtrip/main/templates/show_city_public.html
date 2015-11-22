@@ -93,7 +93,7 @@
                                         {{activities[index+col].description}}
                                     </p>
                                     <p>
-                                        <a href="{{url_for('show_activity',
+                                        <a href="{{url_for('.show_activity',
                                                            city_id=city.id,
                                                            activity_id=activities[index+col].id)}}"
                                            class="btn btn-default btn-sm">
@@ -121,7 +121,7 @@
                     <p>
                         {% block buttons %}
                         {% endblock buttons %}
-                        <a href="{{url_for('list_cities')}}"
+                        <a href="{{url_for('.list_cities')}}"
                            class="btn btn-default"
                            role="button">
                             Back

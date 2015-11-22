@@ -1,13 +1,13 @@
 {% extends "show_activity_public.html" %}
 {% block buttons %}
-    <a href="{{url_for('edit_activity',
+    <a href="{{url_for('.edit_activity',
                        city_id=city.id,
                        activity_id=activity.id)}}"
        class="btn btn-default"
        role="button">
         Edit
     </a>
-    <a href="{{url_for('delete_activity',
+    <a href="{{url_for('.delete_activity',
                        city_id=city.id,
                        activity_id=activity.id)}}"
        class="btn btn-default"

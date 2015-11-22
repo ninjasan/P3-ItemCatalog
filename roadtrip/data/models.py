@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+
 class User(Base):
     """Summary of User Class.
 

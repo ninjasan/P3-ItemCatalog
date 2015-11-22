@@ -21,7 +21,7 @@
 
                 <form class="form-horizontal"
                       role="form"
-                      action="{{url_for('edit_activity',
+                      action="{{url_for('.edit_activity',
                                         city_id=city.id,
                                         activity_id=activity.id)}}"
                       method="POST">
@@ -125,7 +125,7 @@
                     </button>
                     <a class="btn btn-default"
                        role="button"
-                       href="{{url_for('show_activity',
+                       href="{{url_for('.show_activity',
                                        city_id=city.id,
                                        activity_id=activity.id)}}">
                         Cancel
