@@ -1,3 +1,4 @@
+"""Starts up the application"""
 __author__ = 'poojm'
 
 from roadtrip import app

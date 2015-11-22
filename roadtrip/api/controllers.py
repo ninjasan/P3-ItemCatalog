@@ -1,7 +1,8 @@
+"""Contains the API controllers for the app"""
 __author__ = 'poojm'
 
 from flask import Blueprint, jsonify
-from roadtrip.data.models import Base, City, Activity
+from roadtrip.data.models import City, Activity
 from roadtrip.data.dbsession import session
 from roadtrip.main.helpers import get_city
 
@@ -9,14 +10,14 @@ api = Blueprint('api', __name__)
 
 
 @api.route('cities/JSON/')
-def cities_JSON():
+def cities_json():
     """Returns list of cities in JSON format."""
     cities = session.query(City).all()
     return jsonify(cities=[city.serialize for city in cities])
 
 
 @api.route('cities/<int:city_id>/JSON/')
-def city_JSON(city_id):
+def city_json(city_id):
     """
     Provides:
         Functionality to get a city and transform it into JSON
@@ -32,7 +33,7 @@ def city_JSON(city_id):
 
 
 @api.route('cities/<int:city_id>/activities/JSON/')
-def city_activities_JSON(city_id):
+def city_activities_json(city_id):
     """
     Provides:
         Functionality to get a activities for a city and transform it into JSON
@@ -49,7 +50,7 @@ def city_activities_JSON(city_id):
 
 
 @api.route('cities/<int:city_id>/activities/<int:activity_id>/JSON/')
-def activity_JSON(city_id, activity_id):
+def activity_json(city_id, activity_id):
     """
     Provides:
         Functionality to get an activity and transform it into JSON

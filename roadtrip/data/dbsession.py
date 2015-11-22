@@ -1,3 +1,4 @@
+"""Contains database session to be used for the whole application """
 __author__ = 'poojm'
 
 from sqlalchemy import create_engine

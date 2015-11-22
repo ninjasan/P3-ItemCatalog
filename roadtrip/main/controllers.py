@@ -1,10 +1,15 @@
+"""
+    Contains methods and routes for main functionality of application
+    These routes are user facing and describes how the user interacts
+    with the site.
+"""
 __author__ = 'poojm'
 
 from flask import Blueprint
-from flask import Flask, render_template, url_for, request, redirect, flash
-from flask import jsonify, abort
+from flask import render_template, url_for, request, redirect, flash
+from flask import abort
 from flask import session as login_session
-from roadtrip.data.models import Base, User, City, Activity
+from roadtrip.data.models import City, Activity
 from roadtrip.data.dbsession import session
 from roadtrip.main.helpers import get_city, get_activity, get_creator
 from roadtrip.main.helpers import generate_key

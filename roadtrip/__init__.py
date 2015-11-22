@@ -1,3 +1,4 @@
+"""Contains basic app definition"""
 __author__ = 'poojm'
 
 from flask import Flask, render_template
