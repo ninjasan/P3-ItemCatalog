@@ -1,3 +1,4 @@
+"""Contains helper functions for the application"""
 __author__ = 'poojm'
 
 import random
@@ -5,7 +6,7 @@ import string
 from flask import abort
 from flask import session as login_session
 from sqlalchemy.orm.exc import NoResultFound
-from roadtrip.data.models import Base, User, City, Activity
+from roadtrip.data.models import User, City, Activity
 from roadtrip.data.dbsession import session
 
 
@@ -18,10 +19,10 @@ def create_user(login_session):
     Args:
         login_session: the dictionary storing login details
     """
-    newUser = User(name=login_session['username'],
+    new_user = User(name=login_session['username'],
                    email=login_session['email'],
                    picture_url=login_session['picture'])
-    session.add(newUser)
+    session.add(new_user)
     session.commit()
     user = session.query(User).filter(
         User.email == login_session['email']
@@ -60,7 +61,7 @@ def get_user_id(email):
     try:
         user = session.query(User).filter(User.email == email).one()
         return user.id
-    except:
+    except NoResultFound:
         return None
 
 
@@ -147,3 +148,32 @@ def generate_nonce():
     if 'nonce' not in login_session:
         login_session['nonce'] = generate_key()
     return login_session['nonce']
+
+
+def set_user_info(provider, data, data_pic):
+    """
+    Provides:
+        Functionality to set the login_session based on the sign-in and then
+        gets checks to see if this user already exists in the DB. If not, the
+        user gets created. The user_id is also set as part of this function.
+
+    Args:
+        provider: which 3rd party is providing the authentication
+        data: the basic information about the user
+        data_pic: the picture url of the user
+    """
+    login_session['provider'] = provider
+    if login_session['provider'] == 'google':
+        login_session['username'] = data["name"]
+        login_session['picture'] = data["picture"]
+        login_session['email'] = data["email"]
+    else:
+        login_session['provider'] = 'facebook'
+        login_session['username'] = data["name"]
+        login_session['email'] = data["email"]
+        login_session['picture'] = data_pic["data"]["url"]
+
+    user_id = get_user_id(login_session['email'])
+    if not user_id:
+        user_id = create_user(login_session)
+    login_session['user_id'] = user_id

@@ -1,14 +1,17 @@
+"""
+    Contains the login/logout functionality for the app
+"""
 __author__ = 'poojm'
 
 import json
 import httplib2
 import requests
 
-from flask import Flask, url_for, request, redirect, make_response, Blueprint
+from flask import url_for, request, redirect, make_response, Blueprint
 from flask import session as login_session
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
-from roadtrip.main.helpers import create_user, get_user_info, get_user_id
+from roadtrip.main.helpers import set_user_info
 
 
 auth = Blueprint('auth', __name__, template_folder='templates')
@@ -45,8 +48,8 @@ def gconnect():
     access_token = credentials.access_token
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}'.
            format(access_token))
-    h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+    http = httplib2.Http()
+    result = json.loads(http.request(url, 'GET')[1])
     # if there was an error int he access token info, abort
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
@@ -90,18 +93,8 @@ def gconnect():
     userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
     params = {'access_token': credentials.access_token, 'alt': 'json'}
     answer = requests.get(userinfo_url, params=params)
-
     data = answer.json()
-    login_session['provider'] = 'google'
-    login_session['username'] = data["name"]
-    login_session['picture'] = data["picture"]
-    login_session['email'] = data["email"]
-
-    # see if user exists
-    user_id = get_user_id(data["email"])
-    if not user_id:
-        user_id = create_user(login_session)
-    login_session['user_id'] = user_id
+    set_user_info('google', data)
 
     output = ''
     output += '<h1>Welcome, '
@@ -129,22 +122,17 @@ def fbconnect():
           "client_id={0}&" \
           "client_secret={1}&" \
           "fb_exchange_token={2}".format(app_id, app_secret, access_token)
-    h = httplib2.Http()
-    result = h.request(url, 'GET')[1]
+    http = httplib2.Http()
+    result = http.request(url, 'GET')[1]
 
-    # use token to get user info from API
-    userinfo_url = 'https://graph.facebook.com/v2.4/me'
     # strip expire tag from access token
     token = result.split('&')[0]
 
     url = "https://graph.facebook.com/v2.4/me?{0}&fields=name,id,email".\
           format(token)
-    h = httplib2.Http()
-    result = h.request(url, 'GET')[1]
+    http = httplib2.Http()
+    result = http.request(url, 'GET')[1]
     data = json.loads(result)
-    login_session['provider'] = 'facebook'
-    login_session['username'] = data["name"]
-    login_session['email'] = data["email"]
     login_session['facebook_id'] = data["id"]
 
     # the token must be stored in the login_session in order to properly logout.
@@ -155,16 +143,10 @@ def fbconnect():
     # get the user pic
     url = "https://graph.facebook.com/v2.4/me/picture?{0}" \
           "&redirect=0&height=200&width=200".format(token)
-    h = httplib2.Http()
-    result = h.request(url, 'GET')[1]
-    data = json.loads(result)
-    login_session['picture'] = data["data"]["url"]
-
-    # see if user exists
-    user_id = get_user_id(login_session['email'])
-    if not user_id:
-        user_id = create_user(login_session)
-    login_session['user_id'] = user_id
+    http = httplib2.Http()
+    result = http.request(url, 'GET')[1]
+    data_pic = json.loads(result)
+    set_user_info('facebook', data, data_pic)
 
     output = ''
     output += '<h1>Welcome, '
@@ -185,6 +167,7 @@ def disconnect():
         elif login_session['provider'] == 'facebook':
             fbdisconnect()
             del login_session['facebook_id']
+            del login_session['access_token']
         del login_session['username']
         del login_session['email']
         del login_session['picture']
@@ -209,8 +192,8 @@ def gdisconnect():
     access_token = credentials
     url = 'https://accounts.google.com/o/oauth2/revoke?token={0}'.\
           format(access_token)
-    h = httplib2.Http()
-    result = h.request(url, 'GET')[0]
+    http = httplib2.Http()
+    result = http.request(url, 'GET')[0]
 
     if result['status'] != '200':
         response = make_response(
@@ -227,6 +210,6 @@ def fbdisconnect():
     access_token = login_session['access_token']
     url = "https://graph.facebook.com/{0}/permissions?access_token={1}".\
            format(facebook_id, access_token)
-    h = httplib2.Http()
-    result = h.request(url, 'DELETE')[1]
-    return "You have been logged out."
+    http = httplib2.Http()
+    result = http.request(url, 'DELETE')[1]
+    return "You have been logged out. {0}".format(result)
