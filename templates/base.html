@@ -28,17 +28,33 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand"href="{{url_for('login')}}">
-                            <img src="{{url_for('static', filename='logo_v2.png')}}" style="height: 25px;">
+                            <img src="{{url_for('static',
+                                                filename='logo_v2.png')}}"
+                                 style="height: 25px;">
                         </a>
                     </div>
                     <div class="collapse navbar-collapse" id="nav_bar_options">
                         <ul class="nav navbar-nav navbar-right">
+                            {% if 'username' in session %}
+                                <li>
+                                    <img src="{{session['picture']}}"
+                                         style="margin-top:5px;
+                                                margin-left:10px;
+                                                width:40px;
+                                                height:40px;
+                                                border-radius:10px;
+                                                -webkit-border-radius:10px;
+                                                -moz-border-radius:10px;">
+                                </li>
+                            {% endif %}
                             <li><a href="{{url_for('list_cities')}}">Cities</a></li>
                             <li><a href="{{url_for('about')}}">About</a></li>
                             {% if 'username' not in session %}
                                 <li>
                                     <a href="{{url_for('login')}}">
-                                        <span class="glyphicon glyphicon-log-in"></span> Login
+                                        <span class="glyphicon glyphicon-log-in">
+                                        </span>
+                                        Login
                                     </a>
                                 </li>
                             {% else %}
