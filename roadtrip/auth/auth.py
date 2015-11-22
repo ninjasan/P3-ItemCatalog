@@ -50,7 +50,7 @@ def gconnect():
            format(access_token))
     http = httplib2.Http()
     result = json.loads(http.request(url, 'GET')[1])
-    # if there was an error int he access token info, abort
+    # if there was an error in the access token info, abort
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
         response.headers['Content-Type'] = 'application/json'
@@ -94,7 +94,7 @@ def gconnect():
     params = {'access_token': credentials.access_token, 'alt': 'json'}
     answer = requests.get(userinfo_url, params=params)
     data = answer.json()
-    set_user_info('google', data)
+    set_user_info('google', data, None)
 
     output = ''
     output += '<h1>Welcome, '
