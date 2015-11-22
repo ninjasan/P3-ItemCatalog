@@ -477,14 +477,8 @@ def gconnect():
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
-
     output += '!</h1>'
-    output += '<img src="'
-    output += login_session['picture']
-    output += '" style = "width: 300px; height: 300px;' \
-              'border-radius: 150px;-webkit-border-radius: 150px;' \
-              '-moz-border-radius: 150px;"> '
-    # flash("you are now logged in as %s" % login_session['username'])
+
     return output
 
 
@@ -573,12 +567,7 @@ def fbconnect():
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
-
     output += '!</h1>'
-    output += '<img src="'
-    output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;' \
-              '-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
 
     return output
 
@@ -592,7 +581,7 @@ def fbdisconnect():
            format(facebook_id, access_token)
     h = httplib2.Http()
     result = h.request(url, 'DELETE')[1]
-    return "you have been logged out"
+    return "You have been logged out."
 
 
 @app.route('/disconnect/')
