@@ -63,17 +63,18 @@
                 </div>
             </div>
 
+            <!--
+                Figure out how many rows/cols there needs to be to
+                display all of the activities for the city, as well
+                as the add new activity button (or at least a placeholder).
+            -->
             {% if activities|length is divisibleby(3) %}
-                <!-- then need to add one more row for add new,
-                     and two extra col -->
                 {% set cols = activities|length + 3 %}
             {% endif %}
             {% if activities|length % 3 == 1 %}
-                <!-- if mod 3 = 1, then need to add new, and extra col -->
                 {% set cols = activities|length+2 %}
             {% endif %}
             {% if activities|length % 3 == 2 %}
-                <!-- if mod 3 = 2, then meed to add new -->
                 {% set cols = activities|length+1 %}
             {% endif %}
             {% for index in range(0, cols, 3) %}
