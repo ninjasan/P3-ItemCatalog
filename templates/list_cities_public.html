@@ -73,6 +73,7 @@
 {% endblock content %}
 
 {% block scripts %}
+    <!-- Function to shorten description text if it's too long-->
     <script>
         $(document).ready(function() {
             for (i=0; i<{{cities|length}}; i++) {

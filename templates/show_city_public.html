@@ -133,12 +133,15 @@
 {% endblock content %}
 
 {% block scripts %}
+    <!-- Function to shorten description text if it's too long-->
     <script>
         $(document).ready(function() {
             for (i=0; i<{{activities|length}}; i++) {
                 var cur_id = '#item_desc' + i
-                var new_str = $(cur_id).text().substr(0,200) + "...";
-                $(cur_id).text(new_str);
+                if($(cur_id).text().length > 200) {
+                    var new_str = $(cur_id).text().substr(0,200) + "...";
+                    $(cur_id).text(new_str);
+                }
             }
         });
     </script>
