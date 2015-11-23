@@ -353,24 +353,3 @@ def delete_activity(city_id, activity_id):
             return render_template('delete_activity.html',
                                    city=city,
                                    activity=activity)
-
-
-@main.route('<str>')
-@main.route('<str>/')
-@main.route('cities/<str>/')
-def page_not_found_1arg(str):
-    """404 if the url the user is trying to access isn't supported"""
-    abort(404)
-
-
-@main.route('cities/<int:city_id>/<str>/')
-@main.route('cities/<int:city_id>/activities/<str>/')
-def page_not_found_2args(city_id, str):
-    """404 if the url the user is trying to access isn't supported"""
-    abort(404)
-
-
-@main.route('cities/<int:city_id>/activities/<int:activity_id>/<str>/')
-def page_not_found_3args(city_id, activity_id, str):
-    """404 if the url the user is trying to access isn't supported"""
-    abort(404)
