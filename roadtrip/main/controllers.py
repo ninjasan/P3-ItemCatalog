@@ -84,12 +84,31 @@ def edit_city(city_id):
     """
     city = get_city(city_id)
     if request.method == 'POST':
+        if 'checkbox' in request.form:
+            if request.form['name'] != '':
+                city.name = request.form['name']
+            if request.form['state'] != '':
+                city.state_provence = request.form['state']
+            if request.form['country'] != '':
+                city.country = request.form['country']
+            if request.form['description'] != '':
+                city.description = request.form['description']
+            if request.form['image'] != '':
+                city.image = request.form['image']
+        else:
+            city.name = request.form['name']
+            city.state_provence = request.form['state']
+            city.country = request.form['country']
+            city.description = request.form['description']
+            city.image = request.form['image']
         session.query(City).filter(City.id == city_id).update(
-            {City.name: request.form['name'],
-             City.state_provence: request.form['state'],
-             City.country: request.form['country'],
-             City.description: request.form['description'],
-             City.image: request.form['image']},
+            {
+                City.name: city.name,
+                City.state_provence: city.state_provence,
+                City.country: city.country,
+                City.description: city.description,
+                City.image: city.image
+            },
             synchronize_session=False)
         session.commit()
         flash("{0} has been successfully edited".format(city.name))
@@ -244,17 +263,37 @@ def edit_activity(city_id, activity_id):
     activity = get_activity(city_id, activity_id)
 
     if request.method == 'POST':
+        if 'checkbox' in request.form:
+            if request.form['name'] != '':
+                activity.name = request.form['name']
+            if request.form['address'] != '':
+                activity.address = request.form['address']
+            if request.form['category'] != '':
+                activity.category = request.form['category']
+            if request.form['description'] != '':
+                activity.description = request.form['description']
+            if request.form['website'] != '':
+                activity.website = request.form['website']
+            if request.form['image'] != '':
+                activity.image = request.form['image']
+        else:
+            activity.name = request.form['name']
+            activity.address = request.form['address']
+            activity.category = request.form['category']
+            activity.description = request.form['description']
+            activity.website = request.form['website']
+            activity.image = request.form['image']
         session.query(Activity).filter(
             Activity.id == activity_id,
             Activity.city_id == city_id
         ).update(
             {
-                Activity.name: request.form['name'],
-                Activity.address: request.form['address'],
-                Activity.description: request.form['description'],
-                Activity.category: request.form['category'],
-                Activity.website: request.form['website'],
-                Activity.image: request.form['image']
+                Activity.name: activity.name,
+                Activity.address: activity.address,
+                Activity.description: activity.description,
+                Activity.category: activity.category,
+                Activity.website: activity.website,
+                Activity.image: activity.image
             }
         )
         session.commit()
@@ -314,3 +353,24 @@ def delete_activity(city_id, activity_id):
             return render_template('delete_activity.html',
                                    city=city,
                                    activity=activity)
+
+
+@main.route('<str>')
+@main.route('<str>/')
+@main.route('cities/<str>/')
+def page_not_found_1arg(str):
+    """404 if the url the user is trying to access isn't supported"""
+    abort(404)
+
+
+@main.route('cities/<int:city_id>/<str>/')
+@main.route('cities/<int:city_id>/activities/<str>/')
+def page_not_found_2args(city_id, str):
+    """404 if the url the user is trying to access isn't supported"""
+    abort(404)
+
+
+@main.route('cities/<int:city_id>/activities/<int:activity_id>/<str>/')
+def page_not_found_3args(city_id, activity_id, str):
+    """404 if the url the user is trying to access isn't supported"""
+    abort(404)

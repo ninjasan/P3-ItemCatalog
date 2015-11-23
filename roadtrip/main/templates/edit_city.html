@@ -59,6 +59,7 @@
                             <select class="form-control"
                                     id="country"
                                     name="country">
+                                <option></option>
                                 <option>USA</option>
                                 <option>Canada</option>
                                 <option>Mexico</option>
@@ -72,12 +73,10 @@
                         </label>
                         <div class="col-xs-10">
                             <textarea class="form-control"
-                                      placeholder="{{city.description}}"
                                       rows="5"
                                       id="description"
                                       name="description"
-                                      maxlength="1000">
-                            </textarea>
+                                      maxlength="1000"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -92,6 +91,17 @@
                                    id="image"
                                    name="image"
                                    maxlength="150">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="active" name="checkbox">
+                                Check this box if you would like automatically keep the
+                                exiting values for fields you didn't fill out. By leaving,
+                                the checkbox unchecked, you will be clearing out the any
+                                field that doesn't have a value above.
+                            </label>
                         </div>
                     </div>
                     <button type="submit"
