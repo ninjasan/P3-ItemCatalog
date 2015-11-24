@@ -207,7 +207,10 @@ def show_activity(city_id, activity_id):
                                creator=creator)
 
 
-@main.route('cities/<int:city_id>/activities/new/', methods=['GET', 'POST'])
+@main.route(
+    'cities/<int:city_id>/activities/new/',
+    methods=['GET', 'POST']
+)
 def new_activity(city_id):
     """
     Provides:
