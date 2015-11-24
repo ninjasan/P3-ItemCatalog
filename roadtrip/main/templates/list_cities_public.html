@@ -13,8 +13,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>Cities</h1>
-                <hr class="small">
-                <span class="subheading">Where would you like to go?</span>
+                <br/>
+                <h5>Where would you like to go?</h5>
             </div>
         </div>
     </div>
@@ -44,6 +44,16 @@
             </div>
         </div>
 
+        {% if cities|length == 0 and 'username' not in session %}
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-sm-offset-2">
+                   <h3>
+                       There's nothing here yet.
+                       Login to start adding locations!
+                   </h3>
+                </div>
+            </div>
+        {% endif %}
         {% for city in cities %}
             <div class="row item city_item">
                 <div class="col-md-4">
