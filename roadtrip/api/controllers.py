@@ -4,7 +4,7 @@ __author__ = 'poojm'
 from flask import Blueprint, jsonify
 from roadtrip.data.models import City, Activity
 from roadtrip.data.dbsession import session
-from roadtrip.main.helpers import get_city
+from roadtrip.main.helpers import get_city, get_activity
 
 api = Blueprint('api', __name__)
 
@@ -62,7 +62,5 @@ def activity_json(city_id, activity_id):
     Returns:
         JSON formatted activity information
     """
-    activity = \
-        session.query(Activity).filter(Activity.id == activity_id,
-                                       Activity.city_id == city_id).one()
+    activity = get_activity(city_id, activity_id)
     return jsonify(activity=activity.serialize)
