@@ -8,7 +8,6 @@ Getting Started
             1) Install Vagrant and Virtual Box
             2) Clone the fullstack-nanodegree-vm repository
             3) Launch the Vagrant VM
-    Steps
         2) Create a sub-directory, locally, in the Vagrant directory
             1) Name it whatever you like
             2) Note: you can also put the files in the existing "catalog" directory. 
@@ -17,8 +16,11 @@ Getting Started
         3) Clone project files from:
            https://github.com/ninjasan/P3-ItemCatalog.git
            and place them the Vagrant sub-directory.
-        4) After SSH-ing into the VM, navigate to the sub-directory where the
-           files are stored.
+        4) SSH into the VM.
+        5) Make sure dicttoxml is installed on the VM. Learn more here:
+            https://pypi.python.org/pypi/dicttoxml/
+        6) Navigate to the sub-directory where the project files are stored.
+    Steps
         5) Optional: To start with the provided db, skip this step. However, if you want to 
            start with a clean database, you can rename vacation_catalog_wUsers.db to something
            else. That way a new, clean db will be created.
@@ -31,7 +33,7 @@ Getting Started
 What's included
     - application.py - contains main for application
     - vacation_catalog_wUsers.db - contains state of DB
-    - this README.txt
+    - this README.md
     - roadtrip (directory)
         - __init__.py - contains main app definition
         - api (directory)
@@ -79,13 +81,21 @@ What's included
             - error_404.html - html representing what is shown when a user runs into a 404
 
 Supported Features
-    - Creates a database and tables to store users, cities, and activities to do in the cities
-    - Allows user login/registration via Facebook and Google
-    - Users that are not logged in can view the content on the site
-    - Users that are logged in can view and create content on the site
-      - For items the user created, they can also edit/delete them while logged in
-      - Nonces in place to protect editing/deleting via CSRF attacks
-    - JSON APIs to retrieve city and activity content
+    V1.1
+        - CSRF protection added to add/edit city, and add/edit activity
+            - To reduce repeated code, turned nonce check into decorator function
+        - XML APIs to retrieve city and activity content
+        - Edit pages now show actual values, instead of placeholders
+        - Facebook login changed from dev mode, so now everyone should be able to login via Facebook, not just me.
+        - DB schema now cascades on delete (instead of looping through items, like I had before)
+    V1
+        - Creates a database and tables to store users, cities, and activities to do in the cities
+        - Allows user login/registration via Facebook and Google
+        - Users that are not logged in can view the content on the site
+        - Users that are logged in can view and create content on the site
+          - For items the user created, they can also edit/delete them while logged in
+          - Nonces in place to protect deleting via CSRF attacks
+        - JSON APIs to retrieve city and activity content
 
 Credits
     - Code help
