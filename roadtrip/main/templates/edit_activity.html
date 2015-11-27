@@ -141,7 +141,9 @@
         $(document).ready(function() {
             var category = ("{{activity.category}}".toLowerCase()).split(" ");
             if (category.length > 0) {
-                document.getElementById(category[0]).setAttribute("selected", "selected");
+                if(category[0].length > 0) {
+                    document.getElementById(category[0]).setAttribute("selected", "selected");
+                }
             }
         });
     </script>
