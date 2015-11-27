@@ -32,7 +32,7 @@
                         </label>
                         <div class="col-xs-10">
                             <input type="text"
-                                   placeholder="{{activity.name}}"
+                                   value="{{activity.name}}"
                                    class="form-control"
                                    id="name"
                                    name="name"
@@ -46,7 +46,7 @@
                         </label>
                         <div class="col-xs-10">
                             <input type="text"
-                                   placeholder="{{activity.address}}"
+                                   value="{{activity.address}}"
                                    class="form-control"
                                    id="address"
                                    name="address"
@@ -63,17 +63,17 @@
                                     id="category"
                                     name="category">
                                 <option></option>
-                                <option>Food & Drinks</option>
-                                <option>Fun & Games</option>
-                                <option>Museums</option>
-                                <option>Other</option>
-                                <option>Outdoors, Nature, Parks</option>
-                                <option>Shopping</option>
-                                <option>Sightseeing</option>
-                                <option>Spas & Wellness</option>
-                                <option>Sports</option>
-                                <option>Theater & Concert Halls</option>
-                                <option>Tours</option>
+                                <option id="food">Food & Drinks</option>
+                                <option id="fun">Fun & Games</option>
+                                <option id="museums">Museums</option>
+                                <option id="other">Other</option>
+                                <option id="outdoors">Outdoors (Nature, Parks, etc)</option>
+                                <option id="shopping">Shopping</option>
+                                <option id="sightseeing">Sightseeing</option>
+                                <option id="spas">Spas & Wellness</option>
+                                <option id="sports">Sports</option>
+                                <option id="theater">Theater & Concert Halls</option>
+                                <option id="tours">Tours</option>
                             </select>
                         </div>
                     </div>
@@ -84,11 +84,10 @@
                         </label>
                         <div class="col-xs-10">
                             <textarea class="form-control"
-                                      placeholder="{{activity.description}}"
                                       rows="5"
                                       id="description"
                                       name="description"
-                                      maxlength="1000"></textarea>
+                                      maxlength="1000">{{activity.description}}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -98,7 +97,7 @@
                         </label>
                         <div class="col-xs-10">
                             <input type="text"
-                                   placeholder="{{activity.website}}"
+                                   value="{{activity.website}}"
                                    class="form-control"
                                    id="website"
                                    name="website"
@@ -112,22 +111,11 @@
                         </label>
                         <div class="col-xs-10">
                             <input type="text"
-                                   placeholder="{{activity.image}}"
+                                   value="{{activity.image}}"
                                    class="form-control"
                                    id="image"
                                    name="image"
                                    maxlength="150">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="active" name="checkbox">
-                                Check this box if you would like automatically keep the
-                                exiting values for fields you didn't fill out. By leaving,
-                                the checkbox unchecked, you will be clearing out the any
-                                field that doesn't have a value above.
-                            </label>
                         </div>
                     </div>
                     <input type="hidden" name="nonce" value="{{nonce()}}">
@@ -147,3 +135,14 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            var category = ("{{activity.category}}".toLowerCase()).split(" ");
+            if (category.length > 0) {
+                document.getElementById(category[0]).setAttribute("selected", "selected");
+            }
+        });
+    </script>
+{% endblock scripts %}

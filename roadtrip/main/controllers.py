@@ -87,23 +87,11 @@ def edit_city(city_id):
     """
     city = get_city(city_id)
     if request.method == 'POST':
-        if 'checkbox' in request.form:
-            if request.form['name'] != '':
-                city.name = request.form['name']
-            if request.form['state'] != '':
-                city.state_provence = request.form['state']
-            if request.form['country'] != '':
-                city.country = request.form['country']
-            if request.form['description'] != '':
-                city.description = request.form['description']
-            if request.form['image'] != '':
-                city.image = request.form['image']
-        else:
-            city.name = request.form['name']
-            city.state_provence = request.form['state']
-            city.country = request.form['country']
-            city.description = request.form['description']
-            city.image = request.form['image']
+        city.name = request.form['name']
+        city.state_provence = request.form['state']
+        city.country = request.form['country']
+        city.description = request.form['description']
+        city.image = request.form['image']
         session.query(City).filter(City.id == city_id).update(
             {
                 City.name: city.name,
@@ -267,26 +255,12 @@ def edit_activity(city_id, activity_id):
     activity = get_activity(city_id, activity_id)
 
     if request.method == 'POST':
-        if 'checkbox' in request.form:
-            if request.form['name'] != '':
-                activity.name = request.form['name']
-            if request.form['address'] != '':
-                activity.address = request.form['address']
-            if request.form['category'] != '':
-                activity.category = request.form['category']
-            if request.form['description'] != '':
-                activity.description = request.form['description']
-            if request.form['website'] != '':
-                activity.website = request.form['website']
-            if request.form['image'] != '':
-                activity.image = request.form['image']
-        else:
-            activity.name = request.form['name']
-            activity.address = request.form['address']
-            activity.category = request.form['category']
-            activity.description = request.form['description']
-            activity.website = request.form['website']
-            activity.image = request.form['image']
+        activity.name = request.form['name']
+        activity.address = request.form['address']
+        activity.category = request.form['category']
+        activity.description = request.form['description']
+        activity.website = request.form['website']
+        activity.image = request.form['image']
         session.query(Activity).filter(
             Activity.id == activity_id,
             Activity.city_id == city_id
