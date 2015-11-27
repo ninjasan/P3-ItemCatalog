@@ -128,8 +128,6 @@ def delete_city(city_id):
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     if request.method == 'POST':
         session.delete(city)
-        for activity in activities:
-            session.delete(activity)
         session.commit()
         flash("The location has been successfully deleted.")
         return redirect(url_for('.list_cities'))

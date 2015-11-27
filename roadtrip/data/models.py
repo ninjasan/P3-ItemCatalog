@@ -27,6 +27,7 @@ class User(Base):
     name = Column(String(100))
     email = Column(String(100))
     picture_url = Column(String(100))
+    cities = relationship('City', cascade="all,delete")
 
 
 class City(Base):
@@ -54,6 +55,7 @@ class City(Base):
     description = Column(String(1000))
     image = Column(String(150))
     user = relationship(User)
+    activities = relationship("Activity", cascade="all,delete")
 
     @property
     def serialize(self):
