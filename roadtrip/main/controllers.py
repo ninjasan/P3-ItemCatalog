@@ -12,6 +12,7 @@ from flask import session as login_session
 from roadtrip.data.models import City, Activity
 from roadtrip.data.dbsession import session
 from roadtrip.main.helpers import get_city, get_activity, get_creator
+from roadtrip.main.helpers import nonce_required
 from roadtrip.main.helpers import generate_key
 
 
@@ -46,6 +47,7 @@ def list_cities():
 
 
 @main.route('cities/new/', methods=['GET', 'POST'])
+@nonce_required
 def new_city():
     """
     Provides:
@@ -72,6 +74,7 @@ def new_city():
 
 
 @main.route('cities/<int:city_id>/edit/', methods=['GET', 'POST'])
+@nonce_required
 def edit_city(city_id):
     """
     Provides:
@@ -122,6 +125,7 @@ def edit_city(city_id):
 
 
 @main.route('cities/<int:city_id>/delete/', methods=['GET', 'POST'])
+@nonce_required
 def delete_city(city_id):
     """
     Provides functionality for deleting a city and associated activities
@@ -135,16 +139,11 @@ def delete_city(city_id):
     city = get_city(city_id)
     activities = session.query(Activity).filter(Activity.city_id == city_id).all()
     if request.method == 'POST':
-        if 'nonce' not in login_session or \
-           login_session['nonce'] != request.form['nonce']:
-            abort(403)
-        else:
-            session.delete(city)
-            for activity in activities:
-                session.delete(activity)
-            session.commit()
-            flash("The location has been successfully deleted.")
-            del login_session['nonce']
+        session.delete(city)
+        for activity in activities:
+            session.delete(activity)
+        session.commit()
+        flash("The location has been successfully deleted.")
         return redirect(url_for('.list_cities'))
     else:
         if 'user_id' not in login_session or \
@@ -211,6 +210,7 @@ def show_activity(city_id, activity_id):
     'cities/<int:city_id>/activities/new/',
     methods=['GET', 'POST']
 )
+@nonce_required
 def new_activity(city_id):
     """
     Provides:
@@ -250,6 +250,7 @@ def new_activity(city_id):
     'cities/<int:city_id>/activities/<int:activity_id>/edit/',
     methods=['GET', 'POST']
 )
+@nonce_required
 def edit_activity(city_id, activity_id):
     """
     Provides functionality for editing an activity for a city
@@ -320,6 +321,7 @@ def edit_activity(city_id, activity_id):
     'cities/<int:city_id>/activities/<int:activity_id>/delete/',
     methods=['GET', 'POST']
 )
+@nonce_required
 def delete_activity(city_id, activity_id):
     """
     Provides:
@@ -336,15 +338,10 @@ def delete_activity(city_id, activity_id):
     activity = get_activity(city_id, activity_id)
 
     if request.method == 'POST':
-        if 'nonce' not in login_session or \
-           login_session['nonce'] != request.form['nonce']:
-            abort(403)
-        else:
-            session.delete(activity)
-            session.commit()
-            flash("The activity has been successfully deleted from {0}".
-                  format(city.name))
-            del login_session['nonce']
+        session.delete(activity)
+        session.commit()
+        flash("The activity has been successfully deleted from {0}".
+              format(city.name))
         return redirect(url_for('.show_city', city_id=city_id))
     else:
         if 'user_id' not in login_session or \

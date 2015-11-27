@@ -3,11 +3,12 @@ __author__ = 'poojm'
 
 import random
 import string
-from flask import abort
+from flask import abort, request
 from flask import session as login_session
 from sqlalchemy.orm.exc import NoResultFound
 from roadtrip.data.models import User, City, Activity
 from roadtrip.data.dbsession import session
+from functools import wraps
 
 
 # helper functions
@@ -181,3 +182,23 @@ def set_user_info(provider, data, data_pic):
     if not user_id:
         user_id = create_user(login_session)
     login_session['user_id'] = user_id
+
+
+def nonce_required(f):
+    """
+    Decorator function that checks for the presence and value of the nonce
+    on any action that would change the DB (i.e. on POSTs). If the check fails,
+    the a 403 page is shown, otherwise continue on like normal.
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if request.method == 'POST':
+            if 'nonce' not in login_session:
+                abort(403)
+            elif login_session['nonce'] != request.form['nonce']:
+                del login_session['nonce']
+                abort(403)
+            else:
+                del login_session['nonce']
+        return f(*args, **kwargs)
+    return decorated_function
