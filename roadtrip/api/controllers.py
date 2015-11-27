@@ -97,6 +97,34 @@ def city_activities_xml(city_id):
     return Response(activities_in_pretty_xml, mimetype='text/xml')
 
 
+@api.route('cities/activities/JSON/')
+def activities_json():
+    """
+    Provides:
+        Functionality to get all activities and transform it into JSON
+
+    Returns:
+        JSON formatted list of activities for a city
+    """
+    activities = session.query(Activity).all()
+    return jsonify(activities=[i.serialize for i in activities])
+
+
+@api.route('cities/activities/XML/')
+def activities_xml():
+    """
+    Provides:
+        Functionality to get all activities and transform it into XML
+
+    Returns:
+        XML formatted list of activities for a city
+    """
+    activities = session.query(Activity).all()
+    activities_in_xml = dicttoxml(activity.serialize for activity in activities)
+    activities_in_pretty_xml = parseString(activities_in_xml).toprettyxml()
+    return Response(activities_in_pretty_xml, mimetype='text/xml')
+
+
 @api.route('cities/<int:city_id>/activities/<int:activity_id>/JSON/')
 def activity_json(city_id, activity_id):
     """
